@@ -1,0 +1,12 @@
+{
+    "ID": "07bbbb62-eaba-efc2-a1b7-64eee2a2e6ba",
+    "ActionKeyword": "vsc",
+    "Name": "Flow.Launcher.Plugin.VscodeOpen",
+    "Description": "Convenient to open VScode history projects for oneself",
+    "Author": "Attack825",
+    "Version": "0.0.1",
+    "Language": "python",
+    "Website": "https://github.com/Attack825/Flow.Launcher.Plugin.VscodeOpen",
+    "IcoPath": "Images\\app.png",
+    "ExecuteFileName": "main.py"
+}
