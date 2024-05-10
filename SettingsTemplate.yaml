@@ -1,32 +1,7 @@
 body:
-  - type: textBlock
-    attributes:
-      description: Welcome to the settings page for my plugin. Here you can configure the plugin to your liking.
   - type: input
     attributes:
-      name: userName
-      label: How should I call you?
-      defaultValue: the user
-  - type: textarea
-    attributes:
-      name: prependResult
-      label: Text to prepend to result output
-      description: >
-        This text will be added to the beginning of the result output. For example, if you set this to 
-        "The result is: ", and the result is "42", the output will be "The result is: 42". 
-  - type: dropdown
-    attributes:
-      name: programmingLanguage
-      label: Programming language to prefer for answers
-      defaultValue: TypeScript
-      options:
-        - JavaScript
-        - TypeScript
-        - Python
-        - "C#"
-  - type: checkbox
-    attributes:
-      name: preferShorterAnswers
-      label: Prefer shorter answers
-      description: If checked, the plugin will try to give answer much shorter than the usual ones.
-      defaultValue: false
+      name: vscode_path
+      label: File location of vscode
+      description: Please enter the location of vscode
+      defaultValue: D:\VSCode\bin\code
