@@ -6,11 +6,55 @@ import json
 import random
 import subprocess
 import urllib.parse
+from typing import Any, Mapping, Dict
+
+if sys.version_info < (3, 11):
+    from typing_extensions import NotRequired, TypedDict
+else:
+    from typing import NotRequired, TypedDict
+
 parent_folder_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(parent_folder_path)
 sys.path.append(os.path.join(parent_folder_path, 'lib'))
 sys.path.append(os.path.join(parent_folder_path, 'plugin'))
 DEFAULT_VSCODE_PATH = r"D:\VSCode\bin\code"
+
+
+class JsonRPCRequest(TypedDict):
+    method: str
+    parameters: list
+    settings: NotRequired[dict[Any, Any]]
+
+
+class JsonRPCClient:
+
+    def send(self, data: Mapping) -> None:
+        json.dump(data, sys.stdout)
+
+    def recieve(self):
+        try:
+            return json.loads(sys.argv[1])
+        except (IndexError, json.JSONDecodeError):
+            return {'method': 'query', 'parameters': ['']}
+
+
+def settings() -> Dict[str, Any]:
+    """Retrieve the settings from Flow Launcher."""
+    return JsonRPCClient().recieve().get('settings', {})
+
+
+def debug_str(str):
+    return [
+        {
+            "Title": "Hello World Python's Context menu",
+            "SubTitle": str,
+            "IcoPath": "Images/app.png",
+            "JsonRPCAction": {
+                "method": "open_url",
+                "parameters": ["https://github.com/Flow-Launcher/Flow.Launcher.Plugin.HelloWorldPython"]
+            }
+        }
+    ]
 
 
 class MessageDTO:
@@ -19,11 +63,10 @@ class MessageDTO:
         self.subtitle = "Press Enter to open the project."
         self.image = project_list["icon"]
         # todo:无法获得flow launcher客户端的配置设置，只能被调用
-        # if not vscode_path is None:
-        #     self.cmd = vscode_path + " " + project_list["path"]
-        # else:
-        #     self.cmd = DEFAULT_VSCODE_PATH + " " + project_list["path"]
-        self.cmd = DEFAULT_VSCODE_PATH + " " + project_list["path"]
+        if not vscode_path is None:
+            self.cmd = vscode_path + " " + project_list["path"]
+        else:
+            self.cmd = DEFAULT_VSCODE_PATH + " " + project_list["path"]
 
     def asFlowMessage(self) -> dict:
         return {
@@ -98,11 +141,13 @@ class HelloWorld(FlowLauncher):
         """
         当flow launcher 触发关键词时，flow会向插件发送query，同时附带了一些信息，需要接受这些信息获取配置信息
         """
+        settings = JsonRPCClient().recieve().get("settings", {})
+        vscode_path = settings.get("vscode_path", None) or None
         project_list = get_vscode_project()
         # todo: 搜索项目
         project_list.sort(key=lambda x: x["mtime"], reverse=True)
         for project in project_list:
-            self.addMessage(MessageDTO(project, None))
+            self.addMessage(MessageDTO(project, vscode_path))
         return self.messages
 
     def open_url(self, url):
