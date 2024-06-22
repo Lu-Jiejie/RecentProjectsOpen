@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from plugin.main import HelloWorld
+from plugin.main import VscodeOpen
 import sys
 import os
 
@@ -12,4 +12,4 @@ sys.path.append(os.path.join(parent_folder_path, "plugin"))
 
 
 if __name__ == "__main__":
-    HelloWorld()
+    VscodeOpen()
