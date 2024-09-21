@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from plugin.main import VscodeOpen
-import sys
 import os
+import sys
+
+from plugin.main import RecentProjectsOpen
 
 parent_folder_path = os.path.abspath(os.path.dirname(__file__))
 # add the plugin folder to the sys.path
@@ -12,4 +13,4 @@ sys.path.append(os.path.join(parent_folder_path, "plugin"))
 
 
 if __name__ == "__main__":
-    VscodeOpen()
+    RecentProjectsOpen()

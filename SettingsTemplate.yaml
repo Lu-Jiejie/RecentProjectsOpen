@@ -1,7 +1,76 @@
 body:
+  - type: textBlock
+    attributes:
+      description: Please enter the corresponding path
   - type: input
     attributes:
-      name: vscode_path
-      label: File location of vscode
-      description: Please enter the location of vscode
+      name: vscode_download
+      label: vscode
+      description: Please enter the download location of vscode
       defaultValue: D:\VSCode\bin\code
+  - type: input
+    attributes:
+      name: vscode_storage
+      label: vscode
+      description: Please enter the storage location of vscode
+      defaultValue: C:\Users\username\AppData\Roaming\Code\User\globalStorage\storage.json
+  - type: input
+    attributes:
+      name: androidstudio_download
+      label: androidstudio
+      description: Please enter the download location of androidstudio
+      defaultValue: D:\Android Studio\bin\studio64.exe
+  - type: input
+    attributes:
+      name: androidstudio_storage
+      label: androidstudio
+      description: Please enter the storage location of androidstudio
+      defaultValue: C:\Users\username\AppData\Roaming\Google\AndroidStudio2024.1\options\recentProjects.xml
+  - type: input
+    attributes:
+      name: idea_download
+      label: idea
+      description: Please enter the download location of idea
+      defaultValue: D:\IntelliJ IDEA 2023.2.2\bin\idea64.exe
+  - type: input
+    attributes:
+      name: idea_storage
+      label: idea
+      description: Please enter the storage location of idea
+      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\IntelliJIdea2023.2\options\recentProjects.xml
+  - type: input
+    attributes:
+      name: pycharm_download
+      label: pycharm
+      description: Please enter the download location of pycharm
+      defaultValue: D:\PyCharm 2023.2.1\bin\pycharm64.exe 
+  - type: input
+    attributes:
+      name: pycharm_storage
+      label: pycharm
+      description: Please enter the storage location of pycharm
+      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\PyCharm2023.2\options\recentProjects.xml
+  - type: input
+    attributes:
+      name: goland_download
+      label: goland
+      description: Please enter the download location of goland
+      defaultValue: D:\GoLand 2023.2.5\bin\goland64.exe
+  - type: input
+    attributes:
+      name: goland_storage
+      label: goland
+      description: Please enter the storage location of goland
+      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\GoLand2023.2\options\recentProjects.xml
+  - type: input
+    attributes:
+      name: clion_download
+      label: clion
+      description: Please enter the download location of clion
+      defaultValue: D:\CLion 2023.2.2\bin\clion64.exe
+  - type: input
+    attributes:
+      name: clion_storage
+      label: clion
+      description: Please enter the storage location of clion
+      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\CLion2023.2\options\recentProjects.xml

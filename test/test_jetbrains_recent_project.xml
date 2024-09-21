@@ -1,0 +1,58 @@
+<application>
+    <component name="RecentProjectsManager">
+      <option name="additionalInfo">
+        <map>
+          <entry key="D:/javaproject/java_classroom">
+            <value>
+              <RecentProjectMetaInfo frameTitle="Ex_1.java – star.java" projectWorkspaceId="2E9WdCOAY9G6IN5Os5tPNNB3a5r">
+                <option name="activationTimestamp" value="1676178496297" />
+                <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+                <option name="build" value="IU-223.7571.182" />
+                <option name="buildTimestamp" value="1669736210369" />
+                <option name="colorInfo">
+                  <RecentProjectColorInfo associatedIndex="8" />
+                </option>
+                <frame x="-9" y="-9" width="1938" height="1038" extendedState="6" />
+                <option name="productionCode" value="IU" />
+                <option name="projectOpenTimestamp" value="1676176794775" />
+              </RecentProjectMetaInfo>
+            </value>
+          </entry>
+          <entry key="D:/Project/JavaProject/RuoYi">
+            <value>
+              <RecentProjectMetaInfo frameTitle="RuoYi – ry_20230706.sql [ruoyi]" projectWorkspaceId="2XYVyYgZpOloKDl8JmdmmAR061I">
+                <option name="activationTimestamp" value="1698928362903" />
+                <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+                <option name="build" value="IU-232.10203.10" />
+                <option name="buildTimestamp" value="1698180580969" />
+                <option name="colorInfo">
+                  <RecentProjectColorInfo associatedIndex="7" />
+                </option>
+                <frame x="-9" y="-9" width="1938" height="1038" extendedState="6" />
+                <option name="productionCode" value="IU" />
+                <option name="projectOpenTimestamp" value="1698822391146" />
+              </RecentProjectMetaInfo>
+            </value>
+          </entry>
+          <entry key="D:/Project/JavaProject/RuoYi/ruoyi-admin">
+            <value>
+              <RecentProjectMetaInfo frameTitle="ruoyi-admin – pom.xml (ruoyi-admin)" projectWorkspaceId="2XZ2Fb33QhMFU87a14OOuaeD9XJ">
+                <option name="activationTimestamp" value="1698824275777" />
+                <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
+                <option name="build" value="IU-232.10203.10" />
+                <option name="buildTimestamp" value="1698180580969" />
+                <option name="colorInfo">
+                  <RecentProjectColorInfo associatedIndex="0" />
+                </option>
+                <frame x="0" y="0" width="1750" height="970" extendedState="6" />
+                <option name="productionCode" value="IU" />
+                <option name="projectOpenTimestamp" value="1698822884517" />
+              </RecentProjectMetaInfo>
+            </value>
+          </entry>
+        </map>
+      </option>
+      <option name="lastOpenedProject" value="D:/Project/JavaProject/shenyu" />
+      <option name="lastProjectLocation" value="D:/Project/JavaProject" />
+    </component>
+  </application>

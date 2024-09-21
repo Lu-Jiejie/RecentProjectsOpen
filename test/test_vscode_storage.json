@@ -1,0 +1,92 @@
+{
+    "telemetry.machineId": "4fd368a50cab7edf1f493950ad5427e90b9ac12fca180ac55f52481aaf7b6541",
+    "backupWorkspaces": {
+        "workspaces": [],
+        "folders": [
+            {
+                "folderUri": "file:///d%3A/Project/BlogProject/MyKnowledgeBase"
+            },
+            {
+                "folderUri": "file:///c%3A/Users/xuwenjie/AppData/Local/FlowLauncher/app-1.19.0/UserData/Plugins/VscodeOpen"
+            }
+        ],
+        "emptyWindows": []
+    },
+    "windowControlHeight": 35,
+    "theme": "vs-dark",
+    "themeBackground": "#282c34",
+    "windowSplash": {
+        "zoomLevel": 0,
+        "baseTheme": "vs-dark",
+        "colorInfo": {
+            "foreground": "#b0b7c3",
+            "background": "#282c34",
+            "editorBackground": "#282c34",
+            "titleBarBackground": "#282c34",
+            "activityBarBackground": "#282c34",
+            "sideBarBackground": "#21252b",
+            "statusBarBackground": "#21252b",
+            "statusBarNoFolderBackground": "#21252b"
+        },
+        "layoutInfo": {
+            "sideBarSide": "left",
+            "editorPartMinWidth": 220,
+            "titleBarHeight": 35,
+            "activityBarWidth": 48,
+            "sideBarWidth": 222,
+            "statusBarHeight": 22,
+            "windowBorder": false
+        }
+    },
+    "windowsState": {
+        "lastActiveWindow": {
+            "folder": "file:///d%3A/Project/BlogProject/MyKnowledgeBase",
+            "backupPath": "C:\\Users\\xuwenjie\\AppData\\Roaming\\Code\\Backups\\6e1513622974c432a3c19f36b6f32d9b",
+            "uiState": {
+                "mode": 0,
+                "x": 184,
+                "y": 8,
+                "width": 1038,
+                "height": 779
+            }
+        },
+        "openedWindows": [
+            {
+                "folder": "file:///d%3A/Project/BlogProject/MyKnowledgeBase",
+                "backupPath": "C:\\Users\\xuwenjie\\AppData\\Roaming\\Code\\Backups\\6e1513622974c432a3c19f36b6f32d9b",
+                "uiState": {
+                    "mode": 0,
+                    "x": 184,
+                    "y": 8,
+                    "width": 1038,
+                    "height": 779
+                }
+            },
+            {
+                "folder": "file:///c%3A/Users/xuwenjie/AppData/Local/FlowLauncher/app-1.19.0/UserData/Plugins/VscodeOpen",
+                "backupPath": "C:\\Users\\xuwenjie\\AppData\\Roaming\\Code\\Backups\\b58bcc97aa07b6c72888d95f7371e32d",
+                "uiState": {
+                    "mode": 0,
+                    "x": 186,
+                    "y": 8,
+                    "width": 1029,
+                    "height": 773
+                }
+            }
+        ]
+    },
+    "userDataProfilesMigration": true,
+    "profileAssociations": {
+        "workspaces": {
+            "file:///d%3A/Project/PythonProject/microsearch": "__default__profile__",
+            "file:///d%3A/Project/C%23Project/Flow.Launcher": "__default__profile__",
+            "file:///d%3A/Project/PythonProject/ai-tagging": "__default__profile__",
+            "file:///d%3A/Project/BlogProject/MyKnowledgeBase": "__default__profile__",
+            "file:///c%3A/Users/xuwenjie/AppData/Local/FlowLauncher/app-1.19.0/UserData/Plugins/VscodeOpen": "__default__profile__"
+        },
+        "emptyWindows": {}
+    },
+    "profileAssociationsMigration": true,
+    "telemetry.sqmId": "{F2631D7B-2C3A-4A40-AB71-EB5ED17A9C7C}",
+    "telemetry.devDeviceId": "f61f59bf-71b9-4cd8-bc21-92425e07399a"
+}
