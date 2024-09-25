@@ -27,8 +27,8 @@ class TestRecentProjectsOpen(unittest.TestCase):
         mock_jsonrpc_client_instance = MagicMock()
         mock_jsonrpc_client_instance.recieve.return_value = {
             "settings": {
-                "vsc_download": "/path/to/vscode",
-                "vsc_storage": "/path/to/vscode/storage",
+                "vscode_download": "/path/to/vscode",
+                "vscode_storage": "/path/to/vscode/storage",
             }
         }
         mock_JsonRPCClient.return_value = mock_jsonrpc_client_instance
@@ -48,13 +48,13 @@ class TestRecentProjectsOpen(unittest.TestCase):
         mock_MessageDTO.return_value = mock_message_dto_instance
 
         # 测试用例
-        arguments = " vsc project_name "
+        arguments = "vsc project_name "
         result = self.rpo.query(arguments)
 
         # 验证mock对象的调用情况
         mock_JsonRPCClient.assert_called_once()
         mock_Application.assert_called_once_with(
-            name="VisualStudioCode",
+            name="vscode",
             installation_path="/path/to/vscode",
             recent_projects_file="/path/to/vscode/storage",
         )

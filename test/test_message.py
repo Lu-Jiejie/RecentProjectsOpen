@@ -15,17 +15,23 @@ from plugin.message import MessageDTO  # noqa: E402
 class TestMessageDTO(unittest.TestCase):
     def test_asMultiFlowMessage(self):
         # 准备测试数据
-        project_list = [
-            Mock(name="Project1", path="C:\\path\\to\\project1"),
-            Mock(name="Project2", path="C:\\path\\to\\project2"),
+        projects = [
+            Mock(spec=["name", "path"]),
+            Mock(spec=["name", "path"]),
         ]
+        # 正确设置 name 和 path 属性
+        projects[0].name = "Project1"
+        projects[0].path = "C:\\path\\to\\project1"
+        projects[1].name = "Project2"
+        projects[1].path = "C:\\path\\to\\project2"
+
         icopath = "C:\\path\\to\\icon.png"
         method = "openProject"
         app_download = "code"
 
         # 调用待测函数
-        message_list = MessageDTO.asMultiFlowMessage(
-            project_list, icopath, method, app_download
+        messages = MessageDTO.asMultiFlowMessage(
+            projects, icopath, method, app_download
         )
 
         # 构建期望得到的结果
@@ -36,7 +42,7 @@ class TestMessageDTO(unittest.TestCase):
                 "IcoPath": icopath,
                 "jsonRPCAction": {
                     "method": method,
-                    "parameter_list": "code C:\\path\\to\\project1",
+                    "parameters": "code C:\\path\\to\\project1",
                 },
             },
             {
@@ -45,13 +51,14 @@ class TestMessageDTO(unittest.TestCase):
                 "IcoPath": icopath,
                 "jsonRPCAction": {
                     "method": method,
-                    "parameter_list": "code C:\\path\\to\\project2",
+                    "parameters": "code C:\\path\\to\\project2",
                 },
             },
         ]
-
+        self.assertEqual(projects[0].name, expected_message_list[0].get("Title"))
+        self.assertEqual(projects[0].path, expected_message_list[0].get("SubTitle"))
         # 断言测试结果与期望结果是否一致
-        self.assertEqual(message_list, expected_message_list)
+        self.assertEqual(messages, expected_message_list)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import urllib.parse
 import xml.etree.ElementTree as ElementTree
@@ -126,22 +127,23 @@ def fuzzy_match(query: str, items: list) -> list:
     Returns:
         _type_: _description_
     """
-    if len(query) < 1:
+    if len(query) < 1:  # 空查询
         return items
-    # 转换查询为拼音
+    # 转换查询为拼音小写，拼音list转str
     query_pinyin = "".join(lazy_pinyin(query, style=Style.NORMAL)).lower()
+    logging.debug(f"query_pinyin:{query_pinyin}")
     # 对每个项进行匹配
-    matches = [
-        item
-        for item in items
-        if item.lower().startswith(
-            query_pinyin.lower()
-        )  # lower小写，startswith是否有query.lower的前缀
-        or process.extractOne(
-            query, ["".join(lazy_pinyin(query, style=Style.NORMAL)).lower()]
-        )[1]
-        > 80  # extractOne 返回一个元组，第一个元素是匹配的字符串，第二个元素是匹配的分数
-    ]
+    matches = []
+    for item in items:
+        if item.lower().startswith(query_pinyin):
+            matches.append(item)
+        else:
+            result = process.extractOne(
+                query_pinyin, "".join(lazy_pinyin(item, style=Style.NORMAL)).lower()
+            )
+            if result is not None and result[1] > 80:
+                matches.append(item)
+
     return matches
 
 
