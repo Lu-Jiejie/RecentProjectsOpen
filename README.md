@@ -2,10 +2,6 @@
 
 A plugin that allows users to quickly open recent projects with ease.
 
-## Features
-
-- **Quick Access**: Instantly open your recent projects from the plugin interface.
-
 ## Installation
 
 ## Usage
