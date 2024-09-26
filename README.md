@@ -10,13 +10,23 @@ A plugin that allows users to quickly open recent projects with ease.
 
 ## Usage
 
-- After installation, access the plugin from the main menu or via the toolbar.
-- Select a project from the list of recent projects to open it quickly.
+You can access different JetBrains IDEs using the following format:
+
+- `vsc`: Visual Studio Code
+- `as`: Android Studio
+- `idea`: IntelliJ IDEA
+- `goland`: GoLand
+- `clion`: CLion
+- `pycharm`: PyCharm
+
+To open a project named "MyProject" in Visual Studio Code, you would use:
+
+ide vsc MyProject
+
+![1727341595414](image/README/1727341595414.png)
+
+![1727341641240](image/README/1727341641240.png)
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This project uses JetBrains icons in accordance with the copyright of JetBrains s.r.o.
