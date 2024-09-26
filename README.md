@@ -22,7 +22,3 @@ ide vsc MyProject
 ![1727341595414](image/README/1727341595414.png)
 
 ![1727341641240](image/README/1727341641240.png)
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
