@@ -1,48 +1,51 @@
 import logging
 import subprocess
+import sys
 import webbrowser
+from os.path import abspath, dirname, join
 
 from flowlauncher import FlowLauncher
-from jsonrpc import JsonRPCClient
-from log_config import setup_logging
-from message import MessageDTO
-from utils import Application, Project
+
+parent_folder_path = abspath(dirname(dirname(__file__)))
+sys.path.append(join(parent_folder_path, "plugin"))
+
+from jsonrpc import JsonRPCClient  # noqa: E402
+from log_config import setup_logging  # noqa: E402
+from message import MessageDTO  # noqa: E402
+from utils import Application, Project  # noqa: E402
 
 setup_logging()
 
-ICOPATH = "icons/app.png"
-
 APPS = {
-    "vsc": "vscode",
-    "as": "androidstudio",
-    "idea": "idea",
-    "goland": "goland",
-    "clion": "clion",
-    "pycharm": "pycharm",
+    "vsc": "Visual_Studio_Code",
+    "as": "Android_Studio",
+    "idea": "IntelliJ_IDEA",
+    "goland": "GoLand",
+    "clion": "Clion",
+    "pycharm": "PyCharm",
 }
 
 
 class RecentProjectsOpen(FlowLauncher):
     def query(self, param: str) -> list:
         """
-        ide vsc query
-        ide as
-        ide idea
-        ide goland
-        ide clion
-        ide pycharm
+        从sys.arg接受查询参数，返回查询结果
         """
         args = param.strip()
         logging.debug(f"param: {args}")
         if len(args) == 0:
-            raise Exception("Invalid param")
-        # 解析参数
+            return MessageDTO.asWarnFlowMessage(
+                "param is empty", "Please input your query"
+            )
         instruction = args.split(" ")[0]
         if instruction not in APPS.keys():
-            raise Exception("Invalid instruction")
+            return MessageDTO.asWarnFlowMessage(
+                "{} is not supported".format(instruction),
+                "Please input your Software abbreviation",
+            )
         else:
             app_name = APPS[instruction]
-        icon_path = "icon/{}.png".format(APPS[instruction])
+        icon_path = "icons/{}_icon.png".format(APPS[instruction])
         logging.debug(f"icon_path:{icon_path}")
 
         query = "".join(args.split(" ")[1:])
@@ -50,22 +53,32 @@ class RecentProjectsOpen(FlowLauncher):
 
         settings = JsonRPCClient().recieve().get("settings", {})
         logging.debug(f"settings: {settings}")
+
         app_download = settings.get(app_name + "_download", None)
         app_storage = settings.get(app_name + "_storage", None)
         if app_download is None or app_storage is None:
-            raise Exception("Invalid settings")
-
-        # 初始化app
-        app = Application(
-            name=app_name,
-            installation_path=app_download,
-            recent_projects_file=app_storage,
-        )
-        projects = []
-        for project in app.get_recent_projects():
-            project = Project(project)
-            logging.debug(f"projects: {project.name}")
-            projects.append(project)
+            return MessageDTO.asWarnFlowMessage(
+                "app_download or app_storage is None", "Please check your settings"
+            )
+        try:
+            app = Application(
+                name=app_name,
+                installation_path=app_download,
+                recent_projects_file=app_storage,
+            )
+            projects = []
+            for project in app.get_recent_projects():
+                project = Project(project)
+                logging.debug(f"projects: {project.name}")
+                projects.append(project)
+        except NotImplementedError:
+            return MessageDTO.asWarnFlowMessage(
+                "this app is not supported", "Welcome to provide PR"
+            )
+        except FileNotFoundError:
+            return MessageDTO.asWarnFlowMessage(
+                "app_download or app_storage is Error", "Please check your settings"
+            )
 
         res = app.fuzzy_match(query, projects)
 
@@ -93,7 +106,7 @@ class RecentProjectsOpen(FlowLauncher):
         )
 
 
-def test():
+def debug():
     import json
 
     # 在文件夹中复制地址时，文件夹中的地址是用 \ 来分隔不同文件夹的，而Python识别地址时只能识别用 / 分隔的地址。

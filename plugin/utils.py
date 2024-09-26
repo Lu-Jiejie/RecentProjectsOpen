@@ -37,14 +37,15 @@ class Application:
                 os.getenv("APPDATA"), "Code", "User", "globalStorage", "storage.json"
             )
             if not os.path.exists(recent_projects_file):
-                raise
+                raise FileNotFoundError("recent_projects_file not found")
         folder_urls = []
+        # 读取文件storage.json
         with open(recent_projects_file, "r", encoding="utf8") as f:
             data = json.loads(f.read())
             profileAssociations = data.get("profileAssociations")
             workspaces = profileAssociations.get("workspaces")
             keys_list = list(workspaces.keys())
-            for i in range(len(keys_list)):
+            for i in range(len(keys_list) - 1, -1, -1):  # 倒序
                 folder_urls.append(keys_list[i])
         projects = []
         for folder_url in folder_urls:
@@ -71,7 +72,7 @@ class Application:
                 os.getenv("APPDATA"), "Code", "User", "globalStorage", "storage.json"
             )
             if not os.path.exists(recent_projects_file):
-                raise
+                raise FileNotFoundError("recent_projects_file not found")
         tree = ElementTree.parse(recent_projects_file)
         projects = [
             t.attrib["key"].replace("$USER_HOME$", "~")
@@ -91,12 +92,18 @@ class Application:
         Returns:
             list[str]: _description_
         """
-        if self.name == "vscode":
+        if self.name == "Visual_Studio_Code":
             return self.get_vscode_projects()
-        elif self.name in {"androidstudio", "idea", "pycharm", "goland", "clion"}:
+        elif self.name in {
+            "Android_Studio",
+            "IntelliJ_IDEA",
+            "PyCharm",
+            "GoLand",
+            "Clion",
+        }:
             return self.get_jetbrains_projects()
         else:
-            raise
+            raise NotImplementedError("Not implemented")
 
     @staticmethod
     def fuzzy_match(query: str, projects: list[Project]) -> list[Project]:
@@ -135,19 +142,33 @@ def fuzzy_match(query: str, items: list) -> list:
     # 对每个项进行匹配
     matches = []
     for item in items:
-        if item.lower().startswith(query_pinyin):
+        item_pinyin = "".join(lazy_pinyin(item, style=Style.NORMAL)).lower()
+        if item_pinyin.startswith(query_pinyin):
             matches.append(item)
+            logging.debug(f"matched:{item}")
         else:
-            result = process.extractOne(
-                query_pinyin, "".join(lazy_pinyin(item, style=Style.NORMAL)).lower()
-            )
-            if result is not None and result[1] > 80:
+            result = process.extractOne(query_pinyin, item_pinyin)
+            logging.debug("result: ", item_pinyin)
+            if result is not None and result[1] > 90:
+                logging.debug(f"extractOne matched:{item}")
                 matches.append(item)
 
     return matches
 
 
 def convert_first_letter_upper(projects: list[str]) -> list[str]:
+    """将项目列表的首字母转换为大写
+
+    Args:
+        projects (list[str]): _description_
+
+    Raises:
+        ValueError: _description_
+        ValueError: _description_
+
+    Returns:
+        list[str]: _description_
+    """
     # 处理空列表的情况
     if not projects:
         return []

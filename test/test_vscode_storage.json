@@ -80,10 +80,7 @@
         "workspaces": {
             "file:///d%3A/Project/PythonProject/microsearch": "__default__profile__",
             "file:///d%3A/Project/C%23Project/Flow.Launcher": "__default__profile__",
-            "file:///d%3A/Project/PythonProject/ai-tagging": "__default__profile__",
-            "file:///d%3A/Project/BlogProject/MyKnowledgeBase": "__default__profile__",
-            "file:///c%3A/Users/xuwenjie/AppData/Local/FlowLauncher/app-1.19.0/UserData/Plugins/VscodeOpen": "__default__profile__"
-        },
+            "file:///d%3A/Project/PythonProject/ai-tagging": "__default__profile__"        },
         "emptyWindows": {}
     },
     "profileAssociationsMigration": true,

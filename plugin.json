@@ -1,12 +1,12 @@
 {
-    "ID": "07bbbb62-eaba-efc2-a1b7-64eee2a2e6ba",
+    "ID": "7f805128-d4f3-4bfa-bd6e-b4ca0ff58ee9",
     "ActionKeyword": "ide",
     "Name": "Flow.Launcher.Plugin.RecentProjectsOpen",
     "Description": "Convenient to open VScode history projects for oneself",
     "Author": "Attack825",
-    "Version": "0.0.1",
+    "Version": "1.0.0",
     "Language": "python",
-    "Website": "https:/github.com/Attack825/Flow.Launcher.Plugin.RecentProjectsOpen",
-    "IcoPath": "Images/app.png",
+    "Website": "https://github.com/Attack825/Flow.Launcher.Plugin.RecentProjectsOpen",
+    "IcoPath": "icons/app.png",
     "ExecuteFileName": "main.py"
 }

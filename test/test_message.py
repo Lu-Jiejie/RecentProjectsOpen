@@ -7,7 +7,6 @@ from unittest.mock import Mock
 parent_folder_path = abspath(dirname(dirname(__file__)))
 sys.path.append(parent_folder_path)
 sys.path.append(join(parent_folder_path, "plugin"))
-sys.path.append(join(parent_folder_path, "test"))
 
 from plugin.message import MessageDTO  # noqa: E402
 
@@ -42,7 +41,7 @@ class TestMessageDTO(unittest.TestCase):
                 "IcoPath": icopath,
                 "jsonRPCAction": {
                     "method": method,
-                    "parameters": "code C:\\path\\to\\project1",
+                    "parameters": ["code C:\\path\\to\\project1"],
                 },
             },
             {
@@ -51,7 +50,7 @@ class TestMessageDTO(unittest.TestCase):
                 "IcoPath": icopath,
                 "jsonRPCAction": {
                     "method": method,
-                    "parameters": "code C:\\path\\to\\project2",
+                    "parameters": ["code C:\\path\\to\\project2"],
                 },
             },
         ]
@@ -63,3 +62,11 @@ class TestMessageDTO(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    test = [
+        {
+            "Title": "e",
+            "SubTitle": "a",
+            "IcoPath": "images/app.png",
+            "jsonRPCAction": {"method": "open_url", "parameters": [""]},
+        }
+    ]

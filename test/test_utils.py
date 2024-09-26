@@ -6,7 +6,6 @@ from os.path import abspath, dirname, join
 parent_folder_path = abspath(dirname(dirname(__file__)))
 sys.path.append(parent_folder_path)
 sys.path.append(join(parent_folder_path, "plugin"))
-sys.path.append(join(parent_folder_path, "test"))
 
 
 from plugin.utils import (  # noqa: E402
@@ -59,17 +58,22 @@ class TestFuzzyMatch(unittest.TestCase):
 
     def test_fuzzy_match(self):
         """测试模糊匹配"""
-        query = "ite"
-        items = ["item1", "item2", "item3"]
-        expected = ["item1", "item2", "item3"]  # 假设 'item3' 有一个好的模糊匹配得分
+        query = "item"
+        items = ["item1", "item2", "item3", "itasde", "item"]
+        expected = [
+            "item1",
+            "item2",
+            "item3",
+            "item",
+        ]  # 假设 'item3' 有一个好的模糊匹配得分
         result = fuzzy_match(query, items)
         self.assertEqual(result, expected)
 
     def test_pinyin_match(self):
         """测试拼音匹配"""
-        query = "san"
-        items = ["san", "三"]
-        expected = ["san", "三"]
+        query = "空洞武士"
+        items = ["空洞武士", "kongdongwushi"]
+        expected = ["空洞武士", "kongdongwushi"]
         result = fuzzy_match(query, items)
         self.assertEqual(result, expected)
 
@@ -77,7 +81,7 @@ class TestFuzzyMatch(unittest.TestCase):
         """测试没有匹配的情况"""
         query = "nonexistent"
         items = ["item1", "item2", "item3"]
-        expected = items
+        expected = []
         result = fuzzy_match(query, items)
         self.assertEqual(result, expected)
 
@@ -128,11 +132,9 @@ class TestGetVscodeProjects(unittest.TestCase):
         self.assertEqual(
             projects,
             [
-                "D:/Project/PythonProject/microsearch",
-                "D:/Project/C#Project/Flow.Launcher",
                 "D:/Project/PythonProject/ai-tagging",
-                "D:/Project/BlogProject/MyKnowledgeBase",
-                "C:/Users/xuwenjie/AppData/Local/FlowLauncher/app-1.19.0/UserData/Plugins/VscodeOpen",
+                "D:/Project/C#Project/Flow.Launcher",
+                "D:/Project/PythonProject/microsearch",
             ],
         )
 

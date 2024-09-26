@@ -11,11 +11,11 @@ class MessageDTO:
 
     def __init__(
         self,
-        title="title",
-        subtitle="subtitle",
-        icopath="images/app.png",
-        method="open_url",
-        parameters=[""],
+        title: str = "title",
+        subtitle: str = "subtitle",
+        icopath: str = "images/app.png",
+        method: str = "open_url",
+        parameters: list[str] = [""],
     ) -> None:
         self.title = title
         self.subtitle = subtitle
@@ -46,7 +46,7 @@ class MessageDTO:
         subtitles = [project.path for project in projects]
         parameters = []
         for project in projects:
-            parameter = " ".join([app_download, project.path])
+            parameter = [" ".join([app_download, project.path])]
             parameters.append(parameter)
 
         for i in range(len(titles)):
@@ -62,3 +62,23 @@ class MessageDTO:
                 }
             )
         return message_list
+
+    @staticmethod
+    def asWarnFlowMessage(msg, operation) -> list:
+        return [
+            {
+                "Title": msg,
+                "SubTitle": operation,
+                "IcoPath": "icons/app.png",
+            }
+        ]
+
+    @staticmethod
+    def asDebugFlowMessage(msg) -> list:
+        return [
+            {
+                "Title": msg,
+                "SubTitle": "Debug",
+                "IcoPath": "icons/warn.png",
+            }
+        ]
