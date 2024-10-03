@@ -2,12 +2,8 @@ import logging
 import subprocess
 import sys
 import webbrowser
-from os.path import abspath, dirname, join
 
 from flowlauncher import FlowLauncher
-
-parent_folder_path = abspath(dirname(dirname(__file__)))
-sys.path.append(join(parent_folder_path, "plugin"))
 
 from jsonrpc import JsonRPCClient  # noqa: E402
 from log_config import setup_logging  # noqa: E402
