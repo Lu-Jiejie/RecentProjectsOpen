@@ -4,73 +4,73 @@ body:
       description: Please enter the corresponding path
   - type: input
     attributes:
-      name: Visual_Studio_Code_download
-      label: Visual_Studio_Code_download
-      description: Please enter the download location of Visual_Studio_Code
-      defaultValue: D:\VSCode\bin\code
+      name: VISUAL_STUDIO_CODE_DOWNLOAD
+      label: VISUAL_STUDIO_CODE_DOWNLOAD
+      description: Please enter the download location of VISUAL_STUDIO_CODE
+      defaultValue: 
   - type: input
     attributes:
-      name: Visual_Studio_Code_storage
-      label: Visual_Studio_Code_storage
-      description: Please enter the storage location of Visual_Studio_Code
-      defaultValue: C:\Users\username\AppData\Roaming\Code\User\globalStorage\storage.json
+      name: VISUAL_STUDIO_CODE_STORAGE
+      label: VISUAL_STUDIO_CODE_STORAGE
+      description: Please enter the STORAGE location of VISUAL_STUDIO_CODE
+      defaultValue:
   - type: input
     attributes:
-      name: Android_Studio_download
-      label: Android_Studio_download
-      description: Please enter the download location of Android_Studio
-      defaultValue: D:\Android Studio\bin\studio64.exe
+      name: ANDROID_STUDIO_DOWNLOAD
+      label: ANDROID_STUDIO_DOWNLOAD
+      description: Please enter the download location of ANDROID_STUDIO
+      defaultValue:
   - type: input
     attributes:
-      name: Android_Studio_storage
-      label: Android_Studio_storage
-      description: Please enter the storage location of Android_Studio
-      defaultValue: C:\Users\username\AppData\Roaming\Google\AndroidStudio2024.1\options\recentProjects.xml
+      name: ANDROID_STUDIO_STORAGE
+      label: ANDROID_STUDIO_STORAGE
+      description: Please enter the STORAGE location of ANDROID_STUDIO
+      defaultValue:
   - type: input
     attributes:
-      name: IntelliJ_IDEA_download
-      label: IntelliJ_IDEA_download
-      description: Please enter the download location of IntelliJ_IDEA
-      defaultValue: D:\IntelliJ IDEA 2023.2.2\bin\idea64.exe
+      name: INTELLIJ_IDEA_DOWNLOAD
+      label: INTELLIJ_IDEA_DOWNLOAD
+      description: Please enter the download location of INTELLIJ_IDEA
+      defaultValue:
   - type: input
     attributes:
-      name: IntelliJ_IDEA_storage
-      label: IntelliJ_IDEA_storage
-      description: Please enter the storage location of IntelliJ_IDEA
-      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\IntelliJIdea2023.2\options\recentProjects.xml
+      name: INTELLIJ_IDEA_STORAGE
+      label: INTELLIJ_IDEA_STORAGE
+      description: Please enter the STORAGE location of INTELLIJ_IDEA
+      defaultValue:
   - type: input
     attributes:
-      name: Pycharm_download
-      label: Pycharm_download
-      description: Please enter the download location of PyCharm
-      defaultValue: D:\PyCharm 2023.2.1\bin\pycharm64.exe 
+      name: PYCHARM_DOWNLOAD
+      label: PYCHARM_DOWNLOAD
+      description: Please enter the download location of PYCHARM
+      defaultValue:
   - type: input
     attributes:
-      name: Pycharm_storage
-      label: Pycharm_storage
-      description: Please enter the storage location of PyCharm
-      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\Pycharm2023.2\options\recentProjects.xml
+      name: PYCHARM_STORAGE
+      label: PYCHARM_STORAGE
+      description: Please enter the STORAGE location of PYCHARM
+      defaultValue:
   - type: input
     attributes:
-      name: GoLand_download
-      label: GoLand_download
-      description: Please enter the download location of GoLand
-      defaultValue: D:\GoLand 2023.2.5\bin\GoLand64.exe
+      name: GOLAND_DOWNLOAD
+      label: GOLAND_DOWNLOAD
+      description: Please enter the download location of GOLAND
+      defaultValue:
   - type: input
     attributes:
-      name: GoLand_storage
-      label: GoLand_storage
-      description: Please enter the storage location of GoLand
-      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\GoLand2023.2\options\recentProjects.xml
+      name: GOLAND_STORAGE
+      label: GOLAND_STORAGE
+      description: Please enter the STORAGE location of GOLAND
+      defaultValue:
   - type: input
     attributes:
-      name: Clion_download
-      label: Clion_download
-      description: Please enter the download location of Clion
-      defaultValue: D:\clion 2023.2.2\bin\clion64.exe
+      name: CLION_DOWNLOAD
+      label: CLION_DOWNLOAD
+      description: Please enter the download location of CLION
+      defaultValue:
   - type: input
     attributes:
-      name: Clion_storage
-      label: Clion_storage
-      description: Please enter the storage location of Clion
-      defaultValue: C:\Users\username\AppData\Roaming\JetBrains\clion2023.2\options\recentProjects.xml
+      name: CLION_STORAGE
+      label: CLION_STORAGE
+      description: Please enter the STORAGE location of CLION
+      defaultValue:

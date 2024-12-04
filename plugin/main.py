@@ -1,72 +1,69 @@
-import logging
+import os
 import subprocess
 import sys
 import webbrowser
 
+from click import UsageError
 from flowlauncher import FlowLauncher
 
-from jsonrpc import JsonRPCClient  # noqa: E402
-from log_config import setup_logging  # noqa: E402
-from message import MessageDTO  # noqa: E402
-from utils import Application, Project  # noqa: E402
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from plugin.application.factory import ConcreteFactory
+from plugin.config import cfg, get_logger
+from plugin.jsonrpc import JsonRPCClient
+from plugin.message import MessageDTO
+from plugin.project import Fuzzy_Filter
 
-setup_logging()
+logger = get_logger()
 
-APPS = {
-    "vsc": "Visual_Studio_Code",
-    "as": "Android_Studio",
-    "idea": "IntelliJ_IDEA",
-    "goland": "GoLand",
-    "clion": "Clion",
-    "pycharm": "PyCharm",
+ABBREVIATE = {
+    "vsc": "VISUAL_STUDIO_CODE",
+    "py": "PYCHARM",
+    "cl": "CLION",
+    "go": "GOLAND",
+    "in": "INTELLIJ_IDEA",
+    "as": "ANDROID_STUDIO",
 }
 
 
 class RecentProjectsOpen(FlowLauncher):
     def query(self, param: str) -> list:
-        """
-        从sys.arg接受查询参数，返回查询结果
-        """
+        """ """
+        # 读取参数，解析abbreviation和query
         args = param.strip()
-        logging.debug(f"param: {args}")
         if len(args) == 0:
             return MessageDTO.asWarnFlowMessage(
                 "param is empty", "Please input your query"
             )
-        instruction = args.split(" ")[0]
-        if instruction not in APPS.keys():
+        abbreviate = args.split(" ")[0]
+        if abbreviate not in ABBREVIATE.keys():
             return MessageDTO.asWarnFlowMessage(
-                "{} is not supported".format(instruction),
+                "{} is not supported".format(abbreviate),
                 "Please input your Software abbreviation",
             )
         else:
-            app_name = APPS[instruction]
-        icon_path = "icons/{}_icon.png".format(APPS[instruction])
-        logging.debug(f"icon_path:{icon_path}")
-
+            app_name = ABBREVIATE[abbreviate]
+            logger.debug(f"app_name: {app_name}")
+        icon_path = "icons/{}_icon.png".format(abbreviate)
         query = "".join(args.split(" ")[1:])
-        logging.debug(f"query: {query}")
-
+        # 读取配置文件，如果配置文件中有对应的app_download和app_storage，使用配置文件中的，否则使用默认值
         settings = JsonRPCClient().recieve().get("settings", {})
-        logging.debug(f"settings: {settings}")
-
-        app_download = settings.get(app_name + "_download", None)
-        app_storage = settings.get(app_name + "_storage", None)
-        if app_download is None or app_storage is None:
+        logger.debug(f"settings: {settings}")
+        if settings.get(app_name + "_DOWNLOAD", None):
+            cfg.rewrite({app_name + "_DOWNLOAD": settings.get(app_name + "_DOWNLOAD")})
+        if settings.get(app_name + "_STORAGE", None):
+            cfg.rewrite({app_name + "_STORAGE": settings.get(app_name + "_STORAGE")})
+        try:
+            app_download = cfg.get(app_name + "_DOWNLOAD")
+            app_storage = cfg.get(app_name + "_STORAGE")
+        except UsageError:
             return MessageDTO.asWarnFlowMessage(
                 "app_download or app_storage is None", "Please check your settings"
             )
+        # 读取recent_projects
         try:
-            app = Application(
-                name=app_name,
-                installation_path=app_download,
-                recent_projects_file=app_storage,
-            )
-            projects = []
-            for project in app.get_recent_projects():
-                project = Project(project)
-                logging.debug(f"projects: {project.name}")
-                projects.append(project)
+            app = ConcreteFactory.create_app(app_name, app_download, app_storage)
+            projects = app.get_projects()
+            res = Fuzzy_Filter.query_filter(query, projects)
         except NotImplementedError:
             return MessageDTO.asWarnFlowMessage(
                 "this app is not supported", "Welcome to provide PR"
@@ -75,9 +72,6 @@ class RecentProjectsOpen(FlowLauncher):
             return MessageDTO.asWarnFlowMessage(
                 "app_download or app_storage is Error", "Please check your settings"
             )
-
-        res = app.fuzzy_match(query, projects)
-
         return MessageDTO().asMultiFlowMessage(
             res,
             icon_path,
@@ -89,10 +83,11 @@ class RecentProjectsOpen(FlowLauncher):
         webbrowser.open(url)
 
     def context_menu(self, data):
-        """用于定义查询结果的上下文菜单。它接收一个参数 `data`，并返回一个列表作为上下文菜单的条目。
-
-        Args:
-            data (_type_): _description_
+        """
+        TODO：
+        使用软件打开
+        使用任务管理器打开文件夹
+        复制文件夹路径
         """
         pass
 
@@ -102,28 +97,6 @@ class RecentProjectsOpen(FlowLauncher):
         )
 
 
-def debug():
-    import json
-
-    # 在文件夹中复制地址时，文件夹中的地址是用 \ 来分隔不同文件夹的，而Python识别地址时只能识别用 / 分隔的地址。
-    # 替换反斜杠为 正斜杠
-    vscode_download = r"D:\VSCode\bin\code".replace("\\", "/")
-
-    vscode_storage = r"C:\Users\xuwenjie\AppData\Roaming\Code\User\globalStorage\storage.json".replace(
-        "\\", "/"
-    )
-
-    txt = {
-        "method": "query",
-        "parameters": ["vsc project_name"],
-        "settings": {
-            "vscode_download": vscode_download,
-            "vscode_storage": vscode_storage,
-        },
-    }
-    print(json.dumps(txt))
-
-
 if __name__ == "__main__":
     test = RecentProjectsOpen()
 
@@ -131,4 +104,4 @@ if __name__ == "__main__":
     # python your_script.py '{"method": "query", "parameters": ["test"]}'
     # win
     # 需要为'"'添加\
-    # & D:\PythonPackage\Python311\python.exe d:\Project\PythonProject\Flow.Launcher.Plugin.RecentProjectsOpen\plugin\main.py '{\"method\": \"query\", \"parameters\": [\"vsc MyKnowledgeBase\"], \"settings\": {\"vscode_download\": \"D:/VSCode/bin/code\", \"vscode_storage\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
+    # & D:\PythonPackage\Python311\python.exe d:\Project\MyProject\PythonProject\RecentProjectsOpen\plugin\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'

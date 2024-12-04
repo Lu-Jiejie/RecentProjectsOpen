@@ -1,6 +1,6 @@
 {
     "ID": "7f805128-d4f3-4bfa-bd6e-b4ca0ff58ee9",
-    "ActionKeyword": "ide",
+    "ActionKeyword": "r",
     "Name": "RecentProjectsOpen",
     "Description": "A plugin that allows users to quickly open recent projects with ease.",
     "Author": "Attack825",

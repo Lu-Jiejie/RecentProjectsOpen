@@ -1,9 +1,9 @@
 import urllib.parse
 
-from log_config import setup_logging
-from utils import Project
+from .config import get_logger
+from .project import Project
 
-setup_logging()
+logger = get_logger()
 
 
 class MessageDTO:

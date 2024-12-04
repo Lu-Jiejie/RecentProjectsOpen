@@ -17,7 +17,7 @@ You can access different JetBrains IDEs using the following format:
 
 To open a project named "MyProject" in Visual Studio Code, you would use:
 
-ide vsc MyProject
+r vsc MyProject
 
 ![1727341595414](image/README/1727341595414.png)
 
