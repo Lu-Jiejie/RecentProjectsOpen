@@ -1,4 +1,5 @@
 import urllib.parse
+from typing import List
 
 from .config import get_logger
 from .project import Project
@@ -39,14 +40,14 @@ class MessageDTO:
     @staticmethod
     def asMultiFlowMessage(
         projects: list[Project], icopath, method: str, app_download: str
-    ):
+    ) -> List:
         message_list = []
 
         titles = [project.name for project in projects]
         subtitles = [project.path for project in projects]
         parameters = []
         for project in projects:
-            parameter = [" ".join([app_download, project.path])]
+            parameter = [app_download, project.path]
             parameters.append(parameter)
 
         for i in range(len(titles)):
@@ -64,7 +65,7 @@ class MessageDTO:
         return message_list
 
     @staticmethod
-    def asWarnFlowMessage(msg, operation) -> list:
+    def asWarnFlowMessage(msg, operation) -> List:
         return [
             {
                 "Title": msg,
@@ -74,7 +75,7 @@ class MessageDTO:
         ]
 
     @staticmethod
-    def asDebugFlowMessage(msg) -> list:
+    def asDebugFlowMessage(msg) -> List:
         return [
             {
                 "Title": msg,

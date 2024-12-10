@@ -91,7 +91,13 @@ class RecentProjectsOpen(FlowLauncher):
         """
         pass
 
-    def cmd_command(self, command: str):
+    def cmd_command(self, app_download, project_path):
+        """
+        由于json_rpc只会传输字符串，所以需要将字符串转换为list
+        ["D:/IntelliJ IDEA 2024.3/bin/idea64.exe", "D:/Project/CloneProject/JavaProject/LeetcodeHot"]
+        """
+        command = [app_download, project_path]
+        logger.debug(f"command: {command}")
         _ = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
         )
