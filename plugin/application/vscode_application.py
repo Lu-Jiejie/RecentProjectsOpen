@@ -43,3 +43,9 @@ class Vscode(BaseApplication):
             projects.append(project)
 
         return projects
+
+
+class Cursor(Vscode):
+    def __init__(self, name: str, download_path: str, storage_file: str):
+        super().__init__(name, download_path, storage_file)
+        self.name = "cur"

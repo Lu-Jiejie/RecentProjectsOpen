@@ -56,6 +56,8 @@ DEFAULT_CONFIG = {
     "CLION_STORAGE": os.getenv("CLION_STORAGE", ""),
     "PYCHARM_DOWNLOAD": os.getenv("PYCHARM_DOWNLOAD", ""),
     "PYCHARM_STORAGE": os.getenv("PYCHARM_STORAGE", ""),
+    "CURSOR_DOWNLOAD": os.getenv("CURSOR_DOWNLOAD", ""),
+    "CURSOR_STORAGE": os.getenv("CURSOR_STORAGE", ""),
 }
 
 

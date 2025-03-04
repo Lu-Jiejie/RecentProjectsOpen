@@ -8,6 +8,7 @@ from .jetbrains_application import (
     Pycharm,
 )
 from .vscode_application import (
+    Cursor,
     Vscode,
 )
 
@@ -38,6 +39,8 @@ class ConcreteFactory(AbstractFactory):
                 return Clion(name, download_path, storage_file)
             elif name == "VISUAL_STUDIO_CODE":
                 return Vscode(name, download_path, storage_file)
+            elif name == "CURSOR":
+                return Cursor(name, download_path, storage_file)
             else:
                 raise NotImplementedError("Invalid product")
         except FileNotFoundError as e:

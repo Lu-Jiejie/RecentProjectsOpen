@@ -7,7 +7,7 @@ body:
       name: VISUAL_STUDIO_CODE_DOWNLOAD
       label: VISUAL_STUDIO_CODE_DOWNLOAD
       description: Please enter the download location of VISUAL_STUDIO_CODE
-      defaultValue: 
+      defaultValue:
   - type: input
     attributes:
       name: VISUAL_STUDIO_CODE_STORAGE
@@ -73,4 +73,16 @@ body:
       name: CLION_STORAGE
       label: CLION_STORAGE
       description: Please enter the STORAGE location of CLION
+      defaultValue:
+  - type: input
+    attributes:
+      name: CURSOR_DOWNLOAD
+      label: CURSOR_DOWNLOAD
+      description: Please enter the download location of CURSOR
+      defaultValue:
+  - type: input
+    attributes:
+      name: CURSOR_STORAGE
+      label: CURSOR_STORAGE
+      description: Please enter the STORAGE location of CURSOR
       defaultValue:

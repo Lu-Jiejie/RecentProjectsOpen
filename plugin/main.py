@@ -22,6 +22,7 @@ ABBREVIATE = {
     "go": "GOLAND",
     "in": "INTELLIJ_IDEA",
     "as": "ANDROID_STUDIO",
+    "cur": "CURSOR",
 }
 
 

@@ -15,5 +15,7 @@ Settings = TypedDict(
         "CLION_STORAGE": str,
         "PYCHARM_DOWNLOAD": str,
         "PYCHARM_STORAGE": str,
+        "CURSOR_DOWNLOAD": str,
+        "CURSOR_STORAGE": str,
     },
 )

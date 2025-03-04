@@ -8,37 +8,63 @@ Download from the store
 
 ## Configuration
 
-To get the most out of the `RecentProjectsOpen` plugin, you may need to configure it according to your preferences and environment.
+To configure the `RecentProjectsOpen` plugin, you can either use the Flow Launcher settings interface or directly edit the plugin's configuration file.
 
-1. **Open Flow Launcher Settings**: Launch Flow Launcher and navigate to the settings page where plugins are managed.
-2. **Find the Plugin**: Locate the `RecentProjectsOpen` plugin in the list of installed plugins.
-3. **Access Configuration Options**: Click on the plugin to access its configuration options. There should be a settings icon or a similar indicator that allows you to open the configuration page.
+### Using Flow Launcher Settings
 
-Now, to input the software download paths and storage file addresses, you would use the following format as an example:
+1. **Open Flow Launcher Settings**:
 
-```plaintext
-VISUAL_STUDIO_CODE_DOWNLOAD=D:/VSCode/bin/code
+   - Launch Flow Launcher.
+   - Navigate to the settings page where plugins are managed.
+2. **Locate the Plugin**:
 
-VISUAL_STUDIO_CODE_STORAGE=C:/Users/YourUsername/AppData/Roaming/Code/User/globalStorage/storage.json
+   - Find the `RecentProjectsOpen` plugin in the list of installed plugins.
+3. **Access Configuration Options**:
 
-ANDROID_STUDIO_DOWNLOAD=D:/Android Studio/bin/studio64.exe
+   - Click on the plugin to access its configuration options. Look for a settings icon or similar indicator to open the configuration page.
+4. **Input Software Paths and Storage Addresses**:
 
-ANDROID_STUDIO_STORAGE=C:/Users/YourUsername/AppData/Roaming/Google/AndroidStudio2024.1/options/recentProjects.xml
+   - Use the following format to input the paths for your IDEs and their storage files. Replace `YourUsername` with your actual Windows username.
 
-INTELLIJ_IDEA_DOWNLOAD=D:/IntelliJ IDEA 2024.3/bin/idea64.exe
+   ```plaintext
+   VISUAL_STUDIO_CODE_DOWNLOAD=D:/VSCode/bin/code
+   VISUAL_STUDIO_CODE_STORAGE=C:/Users/YourUsername/AppData/Roaming/Code/User/globalStorage/storage.json
+   ANDROID_STUDIO_DOWNLOAD=D:/Android Studio/bin/studio64.exe
+   ANDROID_STUDIO_STORAGE=C:/Users/YourUsername/AppData/Roaming/Google/AndroidStudio2024.1/options/recentProjects.xml
+   INTELLIJ_IDEA_DOWNLOAD=D:/IntelliJ IDEA 2024.3/bin/idea64.exe
+   INTELLIJ_IDEA_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/IntelliJIdea2024.3/options/recentProjects.xml
+   GOLAND_DOWNLOAD=D:/goland/GoLand 2023.2/bin/goland64.exe
+   GOLAND_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/GoLand2023.2/options/recentProjects.xml
+   CLION_DOWNLOAD=D:/Clion/CLion 2024.1.4/bin/clion64.exe
+   CLION_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/CLion2024.1/options/recentProjects.xml
+   CURSOR_DOWNLOAD=C:/Users/YourUsername/AppData/Local/Programs/cursor/Cursor.exe
+   CURSOR_STORAGE=C:/Users/YourUsername/AppData/Roaming/Cursor/globalStorage/storage.json
+   ```
 
-INTELLIJ_IDEA_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/IntelliJIdea2024.3/options/recentProjects.xml
+### Directly Editing the Configuration File
 
-GOLAND_DOWNLOAD=D:/goland/GoLand 2023.2/bin/goland64.exe
+If you prefer to configure the plugin directly via the configuration file, follow these steps:
 
-GOLAND_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/GoLand2023.2/options/recentProjects.xml
+1. **Locate the Configuration File**:
 
-CLION_DOWNLOAD=D:/Clion/CLion 2024.1.4/bin/clion64.exe
+   - The plugin's configuration file is located at:
+     ```
+     C:\Users\YourUsername\AppData\Local\FlowLauncher\app-1.19.3\UserData\Plugins\RecentProjectsOpen-1.0.0\plugin\.env
+     ```
+   - Replace `YourUsername` with your actual Windows username.
+2. **Edit the File**:
 
-CLION_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/CLion2024.1/options/recentProjects.xml
-```
+   - Open the `.env` file with a text editor (e.g., Notepad, Visual Studio Code).
+   - Add or modify the paths for your IDEs and their storage files as shown in the example above.
+3. **Save and Restart**:
 
-Replace `YourUsername` with your actual Windows username to point to the correct directories. These paths are essential for the plugin to function correctly by opening the appropriate IDEs and accessing their recent projects.
+   - Save the changes and restart Flow Launcher to apply the new configuration.
+
+### Tips
+
+- **Verify Paths**: Ensure that the paths you enter are correct and that the files or executables exist at those locations.
+- **Permissions**: Make sure that Flow Launcher has the necessary permissions to access the specified directories and files.
+- **Backup**: Before making changes to the `.env` file, create a backup copy in case you need to revert to the original settings.
 
 ## Usage
 
@@ -52,6 +78,7 @@ ABBREVIATE = {
     "go": "GOLAND",
     "in": "INTELLIJ_IDEA",
     "as": "ANDROID_STUDIO",
+    "cur":"CURSOR"
 }
 ```
 
@@ -69,18 +96,8 @@ r vsc 空
 
 ![1733284760505](image/README/1733284760505.png)
 
-## TODO
+## feature
 
-IDE
-
-* [X] Vscode
-* [X] Jetbrains
-* [X] Android Studio
-* [ ] Visual Studio
-* [ ] Aseprite
-
-feature
-
-* [X] fuzzy search
-* [X] support pinyin
-* [X] prevent configurations from disappearing after updates
+- [X] fuzzy search
+- [X] support pinyin
+- [X] prevent configurations from disappearing after updates

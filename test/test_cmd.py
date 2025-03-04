@@ -11,7 +11,7 @@ def cmd_command(command: List[str]):
 if __name__ == "__main__":
     cmd_command(
         [
-            "D:/IntelliJ IDEA 2024.3/bin/idea64.exe",
-            "D:/Project/CloneProject/JavaProject/LeetcodeHot",
+            "C:/Users/xuwenjie/AppData/Local/Programs/cursor/Cursor.exe",
+            "D:/Project/CloneProject/PythonProject/langchain",
         ],
     )
