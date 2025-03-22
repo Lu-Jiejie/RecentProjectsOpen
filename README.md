@@ -96,8 +96,20 @@ r vsc 空
 
 ![1733284760505](image/README/1733284760505.png)
 
-## feature
+## Feature
 
 - [X] fuzzy search
 - [X] support pinyin
 - [X] prevent configurations from disappearing after updates
+
+## Supported applications 
+以下是整理后的内容，全部为小写，并带有勾选框：
+
+- [X] visual studio code
+- [X] pycharm
+- [X] clion
+- [X] goland
+- [X] intellij idea
+- [X] android studio
+- [X] cursor
+- [ ] sumatra pdf
