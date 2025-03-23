@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from typing import Any
 
 from click import UsageError
 
@@ -9,20 +8,15 @@ CONFIG_PATH = CONFIG_FOLDER / ".env"
 
 
 class Config(dict):
-    def __init__(self, config_path: Path, **defaults: Any):
+    def __init__(self, config_path: Path):
         self.config_path = config_path
         if self._exists:
             self._read()
             has_new_config = False
-            for key, value in defaults.items():
-                if key not in self:
-                    has_new_config = True
-                    self[key] = value
             if has_new_config:
                 self._write()
         else:
             config_path.parent.mkdir(parents=True, exist_ok=True)
-            super().__init__(**defaults)
             self._write()
 
     @property
@@ -62,3 +56,4 @@ cfg = Config(CONFIG_PATH)
 if __name__ == "__main__":
     for key, value in cfg.items():
         print(f"{key}: {value}")
+        print(cfg.get(key))

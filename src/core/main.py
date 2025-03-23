@@ -40,18 +40,14 @@ class RecentProjectsOpen(FlowLauncher):
         query = "".join(args.split(" ")[1:])
         # 读取配置文件，如果配置文件中有对应的app_download和app_storage
         settings = JsonRPCClient().recieve().get("settings", {})
-        logger.debug(f"settings: {settings}")
-        if settings.get(app_name + "_DOWNLOAD", None):
-            cfg.rewrite({app_name + "_DOWNLOAD": settings.get(app_name + "_DOWNLOAD")})
-        if settings.get(app_name + "_STORAGE", None):
-            cfg.rewrite({app_name + "_STORAGE": settings.get(app_name + "_STORAGE")})
         # 读取.env配置文件
         try:
             app_download = cfg.get(app_name + "_DOWNLOAD")
             app_storage = cfg.get(app_name + "_STORAGE")
-        except UsageError:
+        except UsageError as e:
             return MessageDTO.asWarnFlowMessage(
-                "app_download or app_storage is None", "Please check your settings"
+                "{0} app_download or app_storage is None".format(app_name) + str(e),
+                "Please check your settings",
             )
         # 读取recent_projects
         try:
@@ -105,3 +101,4 @@ if __name__ == "__main__":
     # win
     # 需要为'"'添加\
     # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
+    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"]}'

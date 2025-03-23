@@ -1,5 +1,5 @@
-from .base_jetbrains import Jetbrains
 from ..core.registry import ApplicationRegistry
+from .base_jetbrains import Jetbrains
 
 
 @ApplicationRegistry.register("GOLAND")
