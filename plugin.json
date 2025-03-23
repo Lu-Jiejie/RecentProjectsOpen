@@ -4,7 +4,7 @@
     "Name": "RecentProjectsOpen",
     "Description": "A plugin that allows users to quickly open recent projects with ease.",
     "Author": "Attack825",
-    "Version": "1.2.0",
+    "Version": "1.2.1",
     "Language": "python",
     "Website": "https://github.com/Attack825/RecentProjectsOpen",
     "IcoPath": "icons/app.png",
