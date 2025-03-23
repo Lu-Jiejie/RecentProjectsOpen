@@ -3,7 +3,7 @@ import sys
 import unittest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plugin.application.vscode_application import Cursor, Vscode
+from src.application.vscode import Cursor, Vscode
 
 
 class TestVscode(unittest.TestCase):

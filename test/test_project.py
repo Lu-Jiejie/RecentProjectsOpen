@@ -4,7 +4,7 @@ import unittest
 from unittest.mock import MagicMock
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plugin.project import Fuzzy_Filter, Project
+from src.project import Fuzzy_Filter, Project
 
 
 class TestFuzzyFilter(unittest.TestCase):

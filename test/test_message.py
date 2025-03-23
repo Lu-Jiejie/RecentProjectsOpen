@@ -8,7 +8,7 @@ parent_folder_path = abspath(dirname(dirname(__file__)))
 sys.path.append(parent_folder_path)
 sys.path.append(join(parent_folder_path, "plugin"))
 
-from plugin.message import MessageDTO  # noqa: E402
+from src.message import MessageDTO  # noqa: E402
 
 
 class TestMessageDTO(unittest.TestCase):

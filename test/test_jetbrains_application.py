@@ -3,7 +3,7 @@ import sys
 import unittest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plugin.application.jetbrains_application import (
+from src.application.base_jetbrains import (
     Jetbrains,
 )
 

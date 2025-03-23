@@ -1,58 +1,51 @@
-import os
 import subprocess
 import sys
 import webbrowser
+from os.path import abspath, dirname
 
 from click import UsageError
 from flowlauncher import FlowLauncher
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plugin.application.factory import ConcreteFactory
-from plugin.config import cfg, get_logger
-from plugin.jsonrpc import JsonRPCClient
-from plugin.message import MessageDTO
-from plugin.project import Fuzzy_Filter
+# 添加根目录到sys.path
+sys.path.append(dirname(dirname(dirname(abspath(__file__)))))
+from src.core.config import cfg
+from src.core.factory import ConcreteFactory
+from src.core.filter import Fuzzy_Filter
+from src.core.jsonrpc import JsonRPCClient
+from src.core.logger import get_logger
+from src.core.message import MessageDTO
 
 logger = get_logger()
-
-ABBREVIATE = {
-    "vsc": "VISUAL_STUDIO_CODE",
-    "py": "PYCHARM",
-    "cl": "CLION",
-    "go": "GOLAND",
-    "in": "INTELLIJ_IDEA",
-    "as": "ANDROID_STUDIO",
-    "cur": "CURSOR",
-}
 
 
 class RecentProjectsOpen(FlowLauncher):
     def query(self, param: str) -> list:
-        """ """
-        # 读取参数，解析abbreviation和query
+        # 读取参数，解析acronyms和query
         args = param.strip()
         if len(args) == 0:
             return MessageDTO.asWarnFlowMessage(
                 "param is empty", "Please input your query"
             )
-        abbreviate = args.split(" ")[0]
-        if abbreviate not in ABBREVIATE.keys():
+        acronyms = args.split(" ")[0]
+        acronyms_dict = ConcreteFactory.get_application_acronyms()
+        if acronyms not in acronyms_dict.keys():
             return MessageDTO.asWarnFlowMessage(
-                "{} is not supported".format(abbreviate),
-                "Please input your Software abbreviation",
+                "{} is not supported".format(acronyms),
+                "Please input your software acronyms",
             )
         else:
-            app_name = ABBREVIATE[abbreviate]
+            app_name = acronyms_dict[acronyms]
             logger.debug(f"app_name: {app_name}")
-        icon_path = "icons/{}_icon.png".format(abbreviate)
+        icon_path = "icons/{}_icon.png".format(acronyms)
         query = "".join(args.split(" ")[1:])
-        # 读取配置文件，如果配置文件中有对应的app_download和app_storage，使用配置文件中的，否则使用默认值
+        # 读取配置文件，如果配置文件中有对应的app_download和app_storage
         settings = JsonRPCClient().recieve().get("settings", {})
         logger.debug(f"settings: {settings}")
         if settings.get(app_name + "_DOWNLOAD", None):
             cfg.rewrite({app_name + "_DOWNLOAD": settings.get(app_name + "_DOWNLOAD")})
         if settings.get(app_name + "_STORAGE", None):
             cfg.rewrite({app_name + "_STORAGE": settings.get(app_name + "_STORAGE")})
+        # 读取.env配置文件
         try:
             app_download = cfg.get(app_name + "_DOWNLOAD")
             app_storage = cfg.get(app_name + "_STORAGE")
@@ -111,4 +104,4 @@ if __name__ == "__main__":
     # python your_script.py '{"method": "query", "parameters": ["test"]}'
     # win
     # 需要为'"'添加\
-    # & D:\PythonPackage\Python311\python.exe d:\Project\MyProject\PythonProject\RecentProjectsOpen\plugin\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
+    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'

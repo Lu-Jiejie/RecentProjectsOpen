@@ -1,20 +1,10 @@
-import os
 from abc import ABC, abstractmethod
 from typing import List
 
 from fuzzywuzzy import process
 from pypinyin import Style, lazy_pinyin
 
-from .config import get_logger
-
-logger = get_logger()
-
-
-class Project:
-    def __init__(self, app_name: str, project_path: str):
-        self.app = app_name
-        self.name = os.path.basename(project_path)
-        self.path = project_path
+from .project import Project
 
 
 class Filter(ABC):
@@ -46,7 +36,3 @@ class Fuzzy_Filter(Filter):
                     matches.append(item)
 
         return matches
-
-
-if __name__ == "__main__":
-    pass

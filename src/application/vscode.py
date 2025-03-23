@@ -3,17 +3,20 @@ import os
 import urllib.parse
 from typing import List
 
-from ..config import get_logger
-from ..project import Project
+from ..core.logger import get_logger
+from ..core.project import Project
+from ..core.registry import ApplicationRegistry
 from .base_application import BaseApplication
 
 logger = get_logger()
 
 
+@ApplicationRegistry.register("VSCODE")
 class Vscode(BaseApplication):
-    def __init__(self, name: str, download_path: str, storage_file: str):
-        super().__init__(name, download_path, storage_file)
-        self.name = "vsc"
+    def __init__(self, download_path: str, storage_file: str):
+        super().__init__(download_path, storage_file)
+        self.name = "VSCODE"
+        self.acronyms = "vsc"
 
     def get_projects(self) -> List[Project]:
         """获取vscode最近打开项目路径"""
@@ -43,9 +46,3 @@ class Vscode(BaseApplication):
             projects.append(project)
 
         return projects
-
-
-class Cursor(Vscode):
-    def __init__(self, name: str, download_path: str, storage_file: str):
-        super().__init__(name, download_path, storage_file)
-        self.name = "cur"

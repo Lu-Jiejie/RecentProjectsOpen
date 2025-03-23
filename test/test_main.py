@@ -3,7 +3,7 @@ import sys
 import unittest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from plugin.main import RecentProjectsOpen
+from src.main import RecentProjectsOpen
 
 
 class TestRecentProjectsOpen(unittest.TestCase):
