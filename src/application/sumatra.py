@@ -34,6 +34,6 @@ class SumatraPDF(BaseApplication):
         for match in matches:
             file_path = match.strip()
             if file_path:
-                projects.append(Project(file_path))
+                projects.append(Project(self.name, file_path))
 
         return projects
