@@ -56,7 +56,7 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
 - [X] intellij idea
 - [X] android studio
 - [X] cursor
-- [ ] sumatra pdf
+- [X] sumatra pdf
 
 You can access different IDEs using the following format:
 

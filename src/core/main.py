@@ -11,7 +11,6 @@ sys.path.append(dirname(dirname(dirname(abspath(__file__)))))
 from src.core.config import cfg
 from src.core.factory import ConcreteFactory
 from src.core.filter import Fuzzy_Filter
-from src.core.jsonrpc import JsonRPCClient
 from src.core.logger import get_logger
 from src.core.message import MessageDTO
 
@@ -39,7 +38,7 @@ class RecentProjectsOpen(FlowLauncher):
         icon_path = "icons/{}_icon.png".format(acronyms)
         query = "".join(args.split(" ")[1:])
         # 读取配置文件，如果配置文件中有对应的app_download和app_storage
-        settings = JsonRPCClient().recieve().get("settings", {})
+        # settings = JsonRPCClient().recieve().get("settings", {})
         # 读取.env配置文件
         try:
             app_download = cfg.get(app_name + "_DOWNLOAD")

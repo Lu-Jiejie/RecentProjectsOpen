@@ -35,6 +35,7 @@ class ApplicationRegistry:
                 filename.endswith(".py")
                 and filename != "__init__.py"
                 and filename != "base_application.py"
+                and filename != "base_jetbrains.py"
             ):
                 module_name = filename[:-3]
                 # 动态导入模块
