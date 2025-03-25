@@ -18,6 +18,10 @@ logger = get_logger()
 
 
 class RecentProjectsOpen(FlowLauncher):
+    def __init__(self):
+        super().__init__()
+        self.context = {}
+
     def query(self, param: str) -> list:
         # 读取参数，解析acronyms和query
         args = param.strip()
@@ -52,7 +56,7 @@ class RecentProjectsOpen(FlowLauncher):
         try:
             app = ConcreteFactory.create_app(app_name, app_download, app_storage)
             projects = app.get_projects()
-            res = Fuzzy_Filter.query_filter(query, projects)
+            res = Fuzzy_Filter.query_filter(query, projects)  # 项目查询结果
         except NotImplementedError:
             return MessageDTO.asWarnFlowMessage(
                 "this app is not supported", "Welcome to provide PR"
@@ -68,36 +72,77 @@ class RecentProjectsOpen(FlowLauncher):
             app_download,
         )
 
-    def open_url(self, url):
-        webbrowser.open(url)
-
-    def context_menu(self, data):
+    def context_menu(self, data: str) -> list:
         """
-        TODO：
-        使用软件打开
         使用任务管理器打开文件夹
         复制文件夹路径
         """
-        pass
+        if data is None:
+            return MessageDTO.asDebugFlowMessage("data is None")
 
-    def cmd_command(self, app_download, project_path):
+        return [
+            {
+                "title": "Open in explorer",
+                "subTitle": "Press enter to open the explorer",
+                "icoPath": "icons/app.png",  # related path to the image
+                "jsonRPCAction": {
+                    "method": "cmd_command",
+                    "parameters": ["start", data[1]],
+                },
+                "score": 0,
+            },
+            {
+                "title": "Copy path",
+                "subTitle": "Press enter to copy the path",
+                "icoPath": "icons/app.png",  # related path to the image
+                "jsonRPCAction": {
+                    "method": "copy_to_clipboard",
+                    "parameters": [data[1]],
+                },
+                "score": 0,
+            },
+            {
+                "title": "RecentProjectsOpen's Context menu",
+                "subTitle": "Press enter to open Flow the plugin's repo in GitHub",
+                "icoPath": "icons/app.png",
+                "jsonRPCAction": {
+                    "method": "open_url",
+                    "parameters": ["https://github.com/Attack825/RecentProjectsOpen"],
+                },
+            },
+        ]
+
+    def open_url(self, url):
+        webbrowser.open(url)
+
+    def cmd_command(self, command: str, argument: str):
         """
         由于json_rpc只会传输字符串，所以需要将字符串转换为list
         ["D:/IntelliJ IDEA 2024.3/bin/idea64.exe", "D:/Project/CloneProject/JavaProject/LeetcodeHot"]
         """
-        command = [app_download, project_path]
-        logger.debug(f"command: {command}")
+        commandLineExpression = [command, argument]
         _ = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+            commandLineExpression,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+        )
+
+    def copy_to_clipboard(self, text: str):
+        _ = subprocess.Popen(
+            ["echo", text, "|", "clip"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
         )
 
 
 if __name__ == "__main__":
-    test = RecentProjectsOpen()
+    RecentProjectsOpen()
 
-    # liunx
-    # python your_script.py '{"method": "query", "parameters": ["test"]}'
-    # win
-    # 需要为'"'添加\
+    # query
     # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
     # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"]}'
+
+    # context_menu
+    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"context_menu\", \"parameters\": [{\"title\": \"D:/Project/CloneProject/JavaProject/LeetcodeHot\"}]}'

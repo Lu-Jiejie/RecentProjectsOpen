@@ -1,10 +1,36 @@
 # Flow.Launcher.Plugin.RecentProjectsOpen
 
-A plugin that allows users to quickly open recent projects with ease.
+A plugin that enables quick access to recent projects across various IDEs like VSCode and PDF readers efficiency.
 
 ## Installation
 
 Download from the store
+
+## Supported applications
+
+- [X] visual studio code
+- [X] pycharm
+- [X] clion
+- [X] goland
+- [X] intellij idea
+- [X] android studio
+- [X] cursor
+- [X] sumatra pdf
+- [ ] vscode ssh
+
+You can access different IDEs using the following format:
+
+```python
+ABBREVIATE = {
+    "vsc": "VISUAL_STUDIO_CODE",
+    "py": "PYCHARM",
+    "cl": "CLION",
+    "go": "GOLAND",
+    "in": "INTELLIJ_IDEA",
+    "as": "ANDROID_STUDIO",
+    "cur":"CURSOR"
+}
+```
 
 ## Configuration
 
@@ -24,8 +50,8 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
    - Add or modify the paths for your IDEs and their storage files as shown in the example above.
 
    ```plaintext
-      VISUAL_STUDIO_CODE_DOWNLOAD=D:/VSCode/bin/code
-      VISUAL_STUDIO_CODE_STORAGE=C:/Users/YourUsername/AppData/Roaming/Code/User/globalStorage/storage.json
+      VSCODE_DOWNLOAD=D:/VSCode/bin/code
+      VSCODE_STORAGE=C:/Users/YourUsername/AppData/Roaming/Code/User/globalStorage/storage.json
       ANDROID_STUDIO_DOWNLOAD=D:/Android Studio/bin/studio64.exe
       ANDROID_STUDIO_STORAGE=C:/Users/YourUsername/AppData/Roaming/Google/AndroidStudio2024.1/options/recentProjects.xml
       INTELLIJ_IDEA_DOWNLOAD=D:/IntelliJ IDEA 2024.3/bin/idea64.exe
@@ -47,30 +73,7 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
 - **Permissions**: Make sure that Flow Launcher has the necessary permissions to access the specified directories and files.
 - **Backup**: Before making changes to the `.env` file, create a backup copy in case you need to revert to the original settings.
 
-## Usage and Supported applications
-
-- [X] visual studio code
-- [X] pycharm
-- [X] clion
-- [X] goland
-- [X] intellij idea
-- [X] android studio
-- [X] cursor
-- [X] sumatra pdf
-
-You can access different IDEs using the following format:
-
-```python
-ABBREVIATE = {
-    "vsc": "VISUAL_STUDIO_CODE",
-    "py": "PYCHARM",
-    "cl": "CLION",
-    "go": "GOLAND",
-    "in": "INTELLIJ_IDEA",
-    "as": "ANDROID_STUDIO",
-    "cur":"CURSOR"
-}
-```
+## Usage
 
 To open a project named "MyProject" in Visual Studio Code, you would use:
 
@@ -86,11 +89,16 @@ r vsc 空
 
 ![1733284760505](image/README/1733284760505.png)
 
+context menu
+
+![1742873448581](image/README/1742873448581.png)
+
 ## Feature
 
 - [X] fuzzy search
 - [X] support pinyin
 - [X] prevent configurations from disappearing after updates
+- [X] open in file explorer and copy absolute path
 
 ## Contribute
 

@@ -1,4 +1,3 @@
-import urllib.parse
 from typing import List
 
 from .logger import get_logger
@@ -9,33 +8,6 @@ logger = get_logger()
 
 class MessageDTO:
     """消息传输对象"""
-
-    def __init__(
-        self,
-        title: str = "title",
-        subtitle: str = "subtitle",
-        icopath: str = "images/app.png",
-        method: str = "open_url",
-        parameters: list[str] = [""],
-    ) -> None:
-        self.title = title
-        self.subtitle = subtitle
-        self.icopath = icopath
-        self.method = method
-        self.parameters = parameters
-
-    def asFlowMessage(self) -> list:
-        return [
-            {
-                "Title": urllib.parse.unquote(self.title),
-                "SubTitle": self.subtitle,
-                "IcoPath": self.icopath,
-                "jsonRPCAction": {
-                    "method": self.method,
-                    "parameters": self.parameters,
-                },
-            }
-        ]
 
     @staticmethod
     def asMultiFlowMessage(
@@ -56,6 +28,7 @@ class MessageDTO:
                     "Title": titles[i],  # unquote指示中文转码
                     "SubTitle": subtitles[i],
                     "IcoPath": icopath,
+                    "ContextData": parameters[i],  # 传递参数给context menu
                     "jsonRPCAction": {
                         "method": method,
                         "parameters": parameters[i],
@@ -65,12 +38,12 @@ class MessageDTO:
         return message_list
 
     @staticmethod
-    def asWarnFlowMessage(msg, operation) -> List:
+    def asWarnFlowMessage(title, subTitle) -> List:
         return [
             {
-                "Title": msg,
-                "SubTitle": operation,
-                "IcoPath": "icons/app.png",
+                "Title": title,
+                "SubTitle": subTitle,
+                "IcoPath": "icons/warn.png",
             }
         ]
 
@@ -80,6 +53,6 @@ class MessageDTO:
             {
                 "Title": msg,
                 "SubTitle": "Debug",
-                "IcoPath": "icons/warn.png",
+                "IcoPath": "icons/app.png",
             }
         ]

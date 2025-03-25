@@ -9,9 +9,11 @@ def cmd_command(command: List[str]):
 
 
 if __name__ == "__main__":
-    cmd_command(
-        [
-            "C:/Users/xuwenjie/AppData/Local/Programs/cursor/Cursor.exe",
-            "D:/Project/CloneProject/PythonProject/langchain",
-        ],
-    )
+    # cmd_command(
+    #     [
+    #         "C:/Users/xuwenjie/AppData/Local/Programs/cursor/Cursor.exe",
+    #         "D:/Project/CloneProject/PythonProject/langchain",
+    #     ],
+    # )
+    # cmd_command(["echo", "c", "|", "clip"])
+    cmd_command(["start", "D:/Project/MyProject/AndroidStudioProject/HelloWorld"])
