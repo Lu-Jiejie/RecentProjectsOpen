@@ -16,6 +16,7 @@ Download from the store
 - [X] android studio
 - [X] cursor
 - [X] sumatra pdf
+- [X] trae
 - [ ] vscode ssh
 
 You can access different IDEs using the following format:
