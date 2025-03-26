@@ -35,7 +35,8 @@ class Vscode(BaseApplication):
             workspaces = profileAssociations.get("workspaces")
             keys_list = list(workspaces.keys())
             for i in range(len(keys_list) - 1, -1, -1):  # 倒序
-                folder_urls.append(keys_list[i])
+                if keys_list[i].startswith("file:///"):
+                    folder_urls.append(keys_list[i])
         projects = []
         for folder_url in folder_urls:
             folder_url = folder_url.replace("file:///", "")

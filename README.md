@@ -17,7 +17,7 @@ Download from the store
 - [X] cursor
 - [X] sumatra pdf
 - [X] trae
-- [ ] vscode ssh
+- [X] vscode ssh
 
 You can access different IDEs using the following format:
 

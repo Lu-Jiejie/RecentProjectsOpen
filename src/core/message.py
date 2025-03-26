@@ -17,10 +17,11 @@ class MessageDTO:
 
         titles = [project.name for project in projects]
         subtitles = [project.path for project in projects]
+        # jsonRPCAction参数
         parameters = []
         for project in projects:
-            parameter = [app_download, project.path]
-            parameters.append(parameter)
+            command = project.get_command(app_download)
+            parameters.append({"ContentData": command, "parameters": command})
 
         for i in range(len(titles)):
             message_list.append(
@@ -28,10 +29,10 @@ class MessageDTO:
                     "Title": titles[i],  # unquote指示中文转码
                     "SubTitle": subtitles[i],
                     "IcoPath": icopath,
-                    "ContextData": parameters[i],  # 传递参数给context menu
+                    "ContextData": parameters[i]["ContentData"],
                     "jsonRPCAction": {
                         "method": method,
-                        "parameters": parameters[i],
+                        "parameters": parameters[i]["parameters"],
                     },
                 }
             )
