@@ -4,7 +4,7 @@
     "Name": "RecentProjectsOpen",
     "Description": "A plugin that enables quick access to recent projects across various IDEs like VSCode and PDF readers efficiency.",
     "Author": "Attack825",
-    "Version": "1.2.2",
+    "Version": "1.2.3",
     "Language": "python",
     "Website": "https://github.com/Attack825/RecentProjectsOpen",
     "IcoPath": "icons/app.png",
