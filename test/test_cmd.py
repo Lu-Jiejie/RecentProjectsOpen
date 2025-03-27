@@ -17,11 +17,14 @@ if __name__ == "__main__":
     # )
     # cmd_command(["echo", "c", "|", "clip"])
     # cmd_command(["start", "D:/Project/MyProject/AndroidStudioProject/HelloWorld"])
+    # cmd_command(
+    #     [
+    #         "D:/Microsoft VS Code/Code.exe",
+    #         "--remote",
+    #         "ssh-remote+10.160.24.112-xwj",
+    #         "/home/xwj/zywj",
+    #     ]
+    # )
     cmd_command(
-        [
-            "D:/Microsoft VS Code/Code.exe",
-            "--remote",
-            "ssh-remote+10.160.24.112-xwj",
-            "/home/xwj/zywj",
-        ]
+        ["D:/Microsoft VS Code/Code.exe", "--remote", "wsl+ubuntu", "/home/xwj/project"]
     )

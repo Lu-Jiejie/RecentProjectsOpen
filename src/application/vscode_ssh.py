@@ -46,11 +46,11 @@ class VscodeSSH(Vscode):
             workspaces = profileAssociations.get("workspaces")
             keys_list = list(workspaces.keys())
             for i in range(len(keys_list) - 1, -1, -1):  # 倒序
-                if keys_list[i].startswith("vscode-remote://ssh-remote"):
+                if keys_list[i].startswith("vscode-remote"):
                     storage_urls.append(keys_list[i])
         # 实现本地项目列表获取逻辑
         projects = []
-        pattern = r'ssh-remote\%2B([\w]+[^/]+)(/[^"]+)'
+        pattern = r'(?:ssh-remote|wsl)\%2B([\w]+[^/]+)(/[^"]+)'
         for storage_url in storage_urls:
             # "vscode-remote://ssh-remote%2B10.160.24.112-root/home/zjh/LogisticsDesign": "__default__profile__",
             # & 'D:\Microsoft VS Code\Code.exe' "--remote ssh-remote+10.160.24.112-xwj /home/xwj/zywj"
@@ -60,6 +60,7 @@ class VscodeSSH(Vscode):
             if match:
                 ssh_remote = match.group(1)
                 folder_url = match.group(2)
+                vscode_remote = "ssh-remote+" if "ssh-remote" in storage_url else "wsl+"
             else:
                 ssh_remote = ""
                 folder_url = storage_url
@@ -68,7 +69,7 @@ class VscodeSSH(Vscode):
                 path=ssh_remote + folder_url,
                 command_args=[
                     "--remote",
-                    "ssh-remote+" + ssh_remote,
+                    vscode_remote + ssh_remote,
                     folder_url,
                 ],
             )

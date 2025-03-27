@@ -22,14 +22,17 @@ Download from the store
 You can access different IDEs using the following format:
 
 ```python
-ABBREVIATE = {
-    "vsc": "VISUAL_STUDIO_CODE",
+{
+    "vsc": "VSCODE",
     "py": "PYCHARM",
     "cl": "CLION",
     "go": "GOLAND",
     "in": "INTELLIJ_IDEA",
     "as": "ANDROID_STUDIO",
-    "cur":"CURSOR"
+    "cur":"CURSOR",
+    "pdf":"SUMATRA_PDF",
+    "trae":"TRAE",
+    "vscs":"VSCODE_SSH",
 }
 ```
 
