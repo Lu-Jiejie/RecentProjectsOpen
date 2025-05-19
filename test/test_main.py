@@ -34,7 +34,7 @@ if __name__ == "__main__":
     unittest.main()
     # 模拟传递给脚本的参数
     # command:
-    # & D:\PythonPackage\Python311\python.exe d:\Project\MyProject\PythonProject\RecentProjectsOpen\plugin\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
+    # & D:\PythonPackage\Python311\python.exe d:\Project\MyProject\PythonProject\RecentProjectsOpen\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
     # json:
     # vsc_dict = {
     #     "method": "query",
