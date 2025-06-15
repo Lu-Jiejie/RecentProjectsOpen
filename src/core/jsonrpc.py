@@ -15,7 +15,6 @@ class JsonRPCRequest(TypedDict):
 
 
 class JsonRPCClient:
-
     def send(self, data: Mapping) -> None:
         json.dump(data, sys.stdout)
 
@@ -23,9 +22,9 @@ class JsonRPCClient:
         try:
             return json.loads(sys.argv[1])
         except (IndexError, json.JSONDecodeError):
-            return {'method': 'query', 'parameters': ['']}
+            return {"method": "query", "parameters": [""]}
 
 
 def settings() -> Dict[str, Any]:
     """Retrieve the settings from Flow Launcher."""
-    return JsonRPCClient().recieve().get('settings', {})
+    return JsonRPCClient().recieve().get("settings", {})

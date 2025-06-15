@@ -10,8 +10,8 @@ logger = get_logger()
 
 
 class Jetbrains(BaseApplication):
-    def __init__(self,  download_path: str, storage_file: str):
-        super().__init__( download_path, storage_file)
+    def __init__(self, download_path: str, storage_file: str):
+        super().__init__(download_path, storage_file)
 
     def get_projects(self) -> List[Project]:
         """获取JetBrains项目列表"""
