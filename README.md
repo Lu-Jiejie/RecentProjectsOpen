@@ -18,6 +18,7 @@ Download from the store
 - [X] sumatra pdf
 - [X] trae
 - [X] vscode ssh
+- [x] typora
 
 You can access different IDEs using the following format:
 
@@ -33,6 +34,7 @@ You can access different IDEs using the following format:
     "pdf":"SUMATRA_PDF",
     "trae":"TRAE",
     "vscs":"VSCODE_SSH",
+    "ty": "TYPORA",
 }
 ```
 
@@ -66,6 +68,8 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
       CLION_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/CLion2024.1/options/recentProjects.xml
       CURSOR_DOWNLOAD=C:/Users/YourUsername/AppData/Local/Programs/cursor/Cursor.exe
       CURSOR_STORAGE=C:/Users/YourUsername/AppData/Roaming/Cursor/globalStorage/storage.json
+      TYPORA_DOWNLOAD=D:/Typora/Typora.exe
+      TYPORA_STORAGE=C:/Users/YourUsername/AppData/Roaming/Typora/history.data
    ```
 3. **Save and Restart**:
 
