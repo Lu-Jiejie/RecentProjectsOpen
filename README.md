@@ -8,16 +8,16 @@ Download from the store
 
 ## Supported applications
 
-- [X] visual studio code
-- [X] pycharm
-- [X] clion
-- [X] goland
-- [X] intellij idea
-- [X] android studio
-- [X] cursor
-- [X] sumatra pdf
-- [X] trae
-- [X] vscode ssh
+- [x] visual studio code
+- [x] pycharm
+- [x] clion
+- [x] goland
+- [x] intellij idea
+- [x] android studio
+- [x] cursor
+- [x] sumatra pdf
+- [x] trae
+- [x] vscode ssh
 - [x] typora
 
 You can access different IDEs using the following format:
@@ -28,7 +28,7 @@ You can access different IDEs using the following format:
     "py": "PYCHARM",
     "cl": "CLION",
     "go": "GOLAND",
-    "in": "INTELLIJ_IDEA",
+    "idea": "INTELLIJ_IDEA",
     "as": "ANDROID_STUDIO",
     "cur":"CURSOR",
     "pdf":"SUMATRA_PDF",
@@ -49,7 +49,9 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
      ```plaintext
      C:\Users\YourUsername\AppData\Local\FlowLauncher\app-1.19.3\UserData\Plugins\RecentProjectsOpen-1.0.0\src\.env
      ```
+
    - Replace `YourUsername` with your actual Windows username.
+
 2. **Edit the File**:
 
    - Open the `.env` file with a text editor (e.g., Notepad, Visual Studio Code).
@@ -71,6 +73,7 @@ To configure the `RecentProjectsOpen` plugin, you should edit the plugin's confi
       TYPORA_DOWNLOAD=D:/Typora/Typora.exe
       TYPORA_STORAGE=C:/Users/YourUsername/AppData/Roaming/Typora/history.data
    ```
+
 3. **Save and Restart**:
 
    - Save the changes and restart Flow Launcher to apply the new configuration.
@@ -103,13 +106,14 @@ context menu
 
 ## Feature
 
-- [X] fuzzy search
-- [X] support pinyin
-- [X] prevent configurations from disappearing after updates
-- [X] open in file explorer and copy absolute path
+- [x] fuzzy search
+- [x] support pinyin
+- [x] prevent configurations from disappearing after updates
+- [x] open in file explorer and copy absolute path
 
 ## Contribute
 
 1. Create a new file in `src/application` directory (e.g., `myapp.py`)
 2. Implement your application class by extending `BaseApplication` or `BaseJetBrains`
 3. Register your application using the `@ApplicationRegistry.register` decorator
+4. Use pre commit to check and format code
