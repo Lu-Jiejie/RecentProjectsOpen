@@ -11,7 +11,7 @@ class MessageDTO:
 
     @staticmethod
     def asMultiFlowMessage(
-        projects: list[Project], icopath, method: str, app_download: str
+        projects: List[Project], icopath, method: str, app_download: str
     ) -> List:
         message_list = []
 

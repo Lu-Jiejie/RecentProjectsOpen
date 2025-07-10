@@ -1,13 +1,10 @@
 import subprocess
-import sys
 import webbrowser
-from os.path import abspath, dirname
+from typing import Dict, List
 
 from click import UsageError
 from flowlauncher import FlowLauncher
 
-# 添加根目录到sys.path
-sys.path.append(dirname(dirname(dirname(abspath(__file__)))))
 from src.core.config import config
 from src.core.factory import ConcreteFactory
 from src.core.filter import Fuzzy_Filter
@@ -22,15 +19,15 @@ class RecentProjectsOpen(FlowLauncher):
         super().__init__()
         self.context = {}
 
-    def query(self, param: str) -> list:
-        # 读取参数，解析acronyms和query
+    def query(self, param: str) -> List[Dict[str, str]]:
         args = param.strip()
-        if len(args) == 0:
-            return MessageDTO.asWarnFlowMessage(
-                "param is empty", "Please input your query"
-            )
-        acronyms = args.split(" ")[0]
         acronyms_dict = ConcreteFactory.get_application_acronyms()
+
+        # 遍历显示
+        if len(args) == 0:
+            return ConcreteFactory.get_application_message()
+        acronyms = args.split(" ")[0]
+
         if acronyms not in acronyms_dict.keys():
             return MessageDTO.asWarnFlowMessage(
                 "{} is not supported".format(acronyms),
@@ -87,22 +84,22 @@ class RecentProjectsOpen(FlowLauncher):
         if len(data) > 1 and re.match(pattern, data[1]):
             return [
                 {
-                    "title": "Open in explorer",
-                    "subTitle": "Press enter to open the explorer",
-                    "icoPath": "icons/app.png",  # related path to the image
-                    "jsonRPCAction": {
-                        "method": "cmd_command",
-                        "parameters": ["start", data[1]],
-                    },
-                    "score": 0,
-                },
-                {
                     "title": "Copy path",
                     "subTitle": "Press enter to copy the path",
                     "icoPath": "icons/app.png",  # related path to the image
                     "jsonRPCAction": {
                         "method": "copy_to_clipboard",
                         "parameters": [data[1]],
+                    },
+                    "score": 0,
+                },
+                {
+                    "title": "Open in explorer",
+                    "subTitle": "Press enter to open the explorer",
+                    "icoPath": "icons/app.png",  # related path to the image
+                    "jsonRPCAction": {
+                        "method": "cmd_command",
+                        "parameters": ["start", data[1]],
                     },
                     "score": 0,
                 },
@@ -138,7 +135,6 @@ class RecentProjectsOpen(FlowLauncher):
 
     def cmd_command(self, *args):
         """
-        由于json_rpc只会传输字符串，所以需要将字符串转换为list
         ["D:/IntelliJ IDEA 2024.3/bin/idea64.exe", "D:/Project/CloneProject/JavaProject/LeetcodeHot"]
         """
         _ = subprocess.Popen(
@@ -155,14 +151,3 @@ class RecentProjectsOpen(FlowLauncher):
             stderr=subprocess.PIPE,
             shell=True,
         )
-
-
-if __name__ == "__main__":
-    RecentProjectsOpen()
-
-    # query
-    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"], \"settings\": {\"VISUAL_STUDIO_CODE_DOWNLOAD\": \"D:/VSCode/bin/code\", \"VISUAL_STUDIO_CODE_STORAGE\": \"C:/Users/xuwenjie/AppData/Roaming/Code/User/globalStorage/storage.json\"}}'
-    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"query\", \"parameters\": [\"vsc \"]}'
-
-    # context_menu
-    # & D:\PythonPackage\Python311\python.exe D:\Project\MyProject\PythonProject\RecentProjectsOpen\src\core\main.py '{\"method\": \"context_menu\", \"parameters\": [{\"title\": \"D:/Project/CloneProject/JavaProject/LeetcodeHot\"}]}'

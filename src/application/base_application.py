@@ -24,7 +24,3 @@ class BaseApplication:
     @abstractmethod
     def get_projects(self) -> List[Project]:
         pass
-
-
-if __name__ == "__main__":
-    pass

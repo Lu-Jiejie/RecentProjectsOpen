@@ -81,6 +81,10 @@ All configurations can be done in the Settings Panel. Change the configurations 
 
 To open a project named "MyProject" in Visual Studio Code, you would use:
 
+r
+
+![1752128883045](image/README/1752128883045.png)
+
 r vsc
 
 ![1733284352742](image/README/1733284352742.png)

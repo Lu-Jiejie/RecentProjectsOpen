@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict
+from typing import Dict, List
 
 from .registry import ApplicationRegistry
 
@@ -44,3 +44,38 @@ class ConcreteFactory(AbstractFactory):
         """
         ApplicationRegistry.load_applications()
         return ApplicationRegistry.get_acronyms_map()
+
+    @classmethod
+    def get_application_message(cls) -> List[Dict[str, str]]:
+        """获得所有applications的消息列表
+        Returns:
+            [
+                {
+                    "title": "VSCODE",
+                    "subTitle": "vsc",
+                    "icoPath": "icons/app.png",
+                    "jsonRPCAction": {
+                        "method": "Flow.Launcher.ChangeQuery",
+                        "parameters": ["r vsc", False],
+                        "dontHideAfterAction": True,
+                    },
+                    "score": 0,
+                },
+            ]
+        """
+        application_dict = ConcreteFactory.get_application_acronyms()
+        keys = list(application_dict.keys())
+        return [
+            {
+                "title": application_dict[keys[i]],
+                "subTitle": keys[i],
+                "icoPath": f"icons/{keys[i]}_icon.png",
+                "jsonRPCAction": {
+                    "method": "Flow.Launcher.ChangeQuery",
+                    "parameters": [f"r {keys[i]}", False],
+                    "dontHideAfterAction": True,
+                },
+                "score": 0,
+            }
+            for i in range(len(keys))
+        ]

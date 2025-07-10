@@ -20,7 +20,3 @@ class Project:
         if self.command_args is not None:
             return [app_download] + self.command_args
         return [app_download, self.path]
-
-
-if __name__ == "__main__":
-    pass
