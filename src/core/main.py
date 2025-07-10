@@ -21,12 +21,13 @@ class RecentProjectsOpen(FlowLauncher):
 
     def query(self, param: str) -> List[Dict[str, str]]:
         args = param.strip()
-        acronyms_dict = ConcreteFactory.get_application_acronyms()
 
-        # 遍历显示
+        # 如果没有输入参数，则根据 suggestions_list 展示建议列表
         if len(args) == 0:
-            return ConcreteFactory.get_application_message()
+            return ConcreteFactory.get_application_message(config)
+
         acronyms = args.split(" ")[0]
+        acronyms_dict = ConcreteFactory.get_application_acronyms(config)
 
         if acronyms not in acronyms_dict.keys():
             return MessageDTO.asWarnFlowMessage(
@@ -35,8 +36,7 @@ class RecentProjectsOpen(FlowLauncher):
             )
         else:
             app_name = acronyms_dict[acronyms]
-            logger.debug(f"app_name: {app_name}")
-        icon_path = "icons/{}_icon.png".format(acronyms)
+        icon_path = f"icons/{app_name}.png"
         query = "".join(args.split(" ")[1:])
 
         # 读取配置
@@ -48,7 +48,7 @@ class RecentProjectsOpen(FlowLauncher):
                 "{0} app_download or app_storage is None".format(app_name) + str(e),
                 "Please check your settings",
             )
-        logger.debug(f"app_download: {app_download}, app_storage: {app_storage}")
+
         # 读取recent_projects
         try:
             app = ConcreteFactory.create_app(app_name, app_download, app_storage)
