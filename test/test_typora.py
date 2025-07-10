@@ -1,51 +1,49 @@
-import json
-from datetime import datetime
-from typing import List
+import os
+import sys
+import unittest
+from os.path import abspath, dirname
+
+TEST_DIR = dirname(abspath(__file__))
+PROJECT_ROOT = dirname(TEST_DIR)
+sys.path.append(PROJECT_ROOT)
+
+from src.application.typora import Typora  # noqa: E402
+
+
+class TestTypora(unittest.TestCase):
+    def setUp(self):
+        """测试初始化"""
+        self.mock_data_dir = os.path.join(TEST_DIR, "mock_data")
+        self.mock_history_file = os.path.join(self.mock_data_dir, "history.data")
+        self.typora = Typora(
+            download_path="",
+            storage_file=self.mock_history_file,
+        )
+
+    def test_get_projects_with_valid_file(self):
+        """测试从有效的历史文件中获取项目列表"""
+        projects = self.typora.get_projects()
+
+        self.assertTrue(len(projects) > 0)
+
+        first_project = projects[0]
+        self.assertEqual(first_project.app_name, "TYPORA")
+        self.assertEqual(first_project.path, r"C:\Users\xuwenjie\Desktop\物化生557.md")
+
+    def test_get_projects_with_invalid_file(self):
+        """测试使用不存在的历史文件时的行为"""
+        invalid_typora = Typora(
+            download_path="",
+            storage_file=os.path.join(self.mock_data_dir, "nonexistent.data"),
+        )
+        projects = invalid_typora.get_projects()
+        self.assertEqual(len(projects), 0)
+
+    def test_typora_initialization(self):
+        """测试Typora类的初始化"""
+        self.assertEqual(self.typora.name, "TYPORA")
+        self.assertEqual(self.typora.acronyms, "ty")
+
 
 if __name__ == "__main__":
-    storage_file = r"C:/Users/xuwenjie/AppData/Roaming/Typora/history.data"
-
-    def get_projects() -> List:
-        """获取Typora最近打开的项目"""
-        projects = []
-
-        try:
-            with open(storage_file, "r", encoding="utf-8") as file:
-                settings_content = file.read()
-        except FileNotFoundError:
-            print(f"Settings file not found: {storage_file}")
-            return projects
-
-        # decoding the hex string to bytes
-        buffer = bytes.fromhex(settings_content)
-        settings_content = json.loads(buffer.decode("utf-8"))
-
-        # combine recentFolder and recentDocument
-        all_items = []
-
-        if "recentFolder" in settings_content:
-            for folder in settings_content["recentFolder"]:
-                if "path" in folder and "date" in folder:
-                    # convert ISO 8601 date string to timestamp
-                    timestamp = datetime.fromisoformat(
-                        folder["date"].replace("Z", "+00:00")
-                    ).timestamp()
-                    all_items.append({"path": folder["path"], "timestamp": timestamp})
-
-        if "recentDocument" in settings_content:
-            for document in settings_content["recentDocument"]:
-                if "path" in document and "date" in document:
-                    timestamp = document["date"] / 1000
-                    all_items.append({"path": document["path"], "timestamp": timestamp})
-
-        # sort all items by timestamp in descending order
-        all_items.sort(key=lambda x: x["timestamp"], reverse=True)
-
-        for item in all_items:
-            projects.append(item["path"])
-
-        return projects
-
-    projects = get_projects()
-    for project in projects:
-        print(project)
+    unittest.main()

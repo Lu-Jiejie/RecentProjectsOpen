@@ -41,7 +41,7 @@ class RecentProjectsOpen(FlowLauncher):
             logger.debug(f"app_name: {app_name}")
         icon_path = "icons/{}_icon.png".format(acronyms)
         query = "".join(args.split(" ")[1:])
-        
+
         # 读取配置
         try:
             app_download = config.get(app_name + "_DOWNLOAD")

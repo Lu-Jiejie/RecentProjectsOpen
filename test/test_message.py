@@ -1,72 +1,93 @@
-# test_message.py
 import sys
 import unittest
-from os.path import abspath, dirname, join
-from unittest.mock import Mock
+from os.path import abspath, dirname
 
-parent_folder_path = abspath(dirname(dirname(__file__)))
-sys.path.append(parent_folder_path)
-sys.path.append(join(parent_folder_path, "plugin"))
+TEST_DIR = dirname(abspath(__file__))
+PROJECT_ROOT = dirname(TEST_DIR)
+sys.path.append(PROJECT_ROOT)
 
-from src.message import MessageDTO  # noqa: E402
+from src.core.message import MessageDTO  # noqa: E402
+from src.core.project import Project  # noqa: E402
 
 
 class TestMessageDTO(unittest.TestCase):
-    def test_asMultiFlowMessage(self):
-        # 准备测试数据
-        projects = [
-            Mock(spec=["name", "path"]),
-            Mock(spec=["name", "path"]),
-        ]
-        # 正确设置 name 和 path 属性
-        projects[0].name = "Project1"
-        projects[0].path = "C:\\path\\to\\project1"
-        projects[1].name = "Project2"
-        projects[1].path = "C:\\path\\to\\project2"
+    def setUp(self):
+        """测试初始化"""
+        self.icon_path = "icons/app.png"
+        self.method = "openProject"
+        self.app_download = "code"
 
-        icopath = "C:\\path\\to\\icon.png"
-        method = "openProject"
-        app_download = "code"
+        self.project1 = Project("vscode", "/path/to/project1")
+        self.project2 = Project("vscode", "/path/to/project2")
+        self.projects = [self.project1, self.project2]
 
-        # 调用待测函数
+    def test_asMultiFlowMessage_normal(self):
+        """测试正常情况下的MultiFlow消息生成"""
         messages = MessageDTO.asMultiFlowMessage(
-            projects, icopath, method, app_download
+            self.projects, self.icon_path, self.method, self.app_download
         )
 
-        # 构建期望得到的结果
-        expected_message_list = [
+        self.assertEqual(len(messages), 2)
+
+        first_msg = messages[0]
+        self.assertEqual(first_msg["Title"], "project1")
+        self.assertEqual(first_msg["SubTitle"], "/path/to/project1")
+        self.assertEqual(first_msg["IcoPath"], self.icon_path)
+        self.assertEqual(
+            first_msg["ContextData"], [self.app_download, "/path/to/project1"]
+        )
+        self.assertEqual(
+            first_msg["jsonRPCAction"],
             {
-                "Title": "Project1",
-                "SubTitle": "C:\\path\\to\\project1",
-                "IcoPath": icopath,
-                "jsonRPCAction": {
-                    "method": method,
-                    "parameters": ["code C:\\path\\to\\project1"],
-                },
+                "method": self.method,
+                "parameters": [self.app_download, "/path/to/project1"],
             },
+        )
+
+        second_msg = messages[1]
+        self.assertEqual(second_msg["Title"], "project2")
+        self.assertEqual(second_msg["SubTitle"], "/path/to/project2")
+        self.assertEqual(
+            second_msg["ContextData"], [self.app_download, "/path/to/project2"]
+        )
+        self.assertEqual(
+            second_msg["jsonRPCAction"],
             {
-                "Title": "Project2",
-                "SubTitle": "C:\\path\\to\\project2",
-                "IcoPath": icopath,
-                "jsonRPCAction": {
-                    "method": method,
-                    "parameters": ["code C:\\path\\to\\project2"],
-                },
+                "method": self.method,
+                "parameters": [self.app_download, "/path/to/project2"],
             },
-        ]
-        self.assertEqual(projects[0].name, expected_message_list[0].get("Title"))
-        self.assertEqual(projects[0].path, expected_message_list[0].get("SubTitle"))
-        # 断言测试结果与期望结果是否一致
-        self.assertEqual(messages, expected_message_list)
+        )
+
+    def test_asMultiFlowMessage_empty_list(self):
+        """测试空项目列表的情况"""
+        messages = MessageDTO.asMultiFlowMessage(
+            [], self.icon_path, self.method, self.app_download
+        )
+        self.assertEqual(messages, [])
+
+    def test_asWarnFlowMessage(self):
+        """测试警告消息生成"""
+        title = "Warning Title"
+        subtitle = "Warning Message"
+        messages = MessageDTO.asWarnFlowMessage(title, subtitle)
+
+        self.assertEqual(len(messages), 1)
+        warn_msg = messages[0]
+        self.assertEqual(warn_msg["Title"], title)
+        self.assertEqual(warn_msg["SubTitle"], subtitle)
+        self.assertEqual(warn_msg["IcoPath"], "icons/warn.png")
+
+    def test_asDebugFlowMessage(self):
+        """测试调试消息生成"""
+        debug_message = "Debug Information"
+        messages = MessageDTO.asDebugFlowMessage(debug_message)
+
+        self.assertEqual(len(messages), 1)
+        debug_msg = messages[0]
+        self.assertEqual(debug_msg["Title"], debug_message)
+        self.assertEqual(debug_msg["SubTitle"], "Debug")
+        self.assertEqual(debug_msg["IcoPath"], "icons/app.png")
 
 
 if __name__ == "__main__":
     unittest.main()
-    test = [
-        {
-            "Title": "e",
-            "SubTitle": "a",
-            "IcoPath": "images/app.png",
-            "jsonRPCAction": {"method": "open_url", "parameters": [""]},
-        }
-    ]
