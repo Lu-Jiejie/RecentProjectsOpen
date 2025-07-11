@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Dict
 
-from .registry import ApplicationRegistry
 from .logger import get_logger
+from .registry import ApplicationRegistry
 
 logger = get_logger()
 
