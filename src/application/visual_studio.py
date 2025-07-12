@@ -9,6 +9,7 @@ from .base_application import BaseApplication
 
 logger = get_logger()
 
+
 @ApplicationRegistry.register("VISUAL_STUDIO")
 class VisualStudio(BaseApplication):
     def __init__(self, download_path: str, storage_file: str):
@@ -24,21 +25,35 @@ class VisualStudio(BaseApplication):
         try:
             tree = ET.parse(storage_file)
             root = tree.getroot()
-            collection = next((col for col in root.findall(".//collection")
-                              if col.attrib.get("name") == "CodeContainers.Offline"), None)
+            collection = next(
+                (
+                    col
+                    for col in root.findall(".//collection")
+                    if col.attrib.get("name") == "CodeContainers.Offline"
+                ),
+                None,
+            )
             if collection is None:
                 return []
-            value_node = next((val for val in collection.findall("value")
-                               if val.attrib.get("name") == "value"), None)
+            value_node = next(
+                (
+                    val
+                    for val in collection.findall("value")
+                    if val.attrib.get("name") == "value"
+                ),
+                None,
+            )
             value_text = None
             if value_node is not None:
-                value_text = value_node.text or (value_node.find("data").text 
-                                                 if (value_node.find("data") is not None) 
-                                                 else None)
+                value_text = value_node.text or (
+                    value_node.find("data").text
+                    if (value_node.find("data") is not None)
+                    else None
+                )
             if not value_text:
                 return []
             projects_data = json.loads(value_text)
-        except Exception as e:
+        except Exception:
             # logger.error(f"解析 Visual Studio 项目 JSON 失败: {e}")
             return []
         projects = []

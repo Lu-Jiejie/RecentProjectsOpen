@@ -9,6 +9,7 @@ Download from the store
 ## Supported programs
 
 - [x] visual studio code
+- [x] visual studio
 - [x] pycharm
 - [x] clion
 - [x] goland
@@ -24,17 +25,18 @@ You can access different programs using the following acronyms:
 
 ```json
 {
-    "vsc": "VSCODE",
-    "py": "PYCHARM",
-    "cl": "CLION",
-    "go": "GOLAND",
-    "idea": "INTELLIJ_IDEA",
-    "as": "ANDROID_STUDIO",
-    "cur":"CURSOR",
-    "pdf":"SUMATRA_PDF",
-    "trae":"TRAE",
-    "vscs":"VSCODE_SSH",
-    "ty": "TYPORA",
+    "VSCODE": "vsc",
+    "VISUAL_STUDIO": "vs",
+    "PYCHARM": "py",
+    "CLION": "cl",
+    "GOLAND": "go",
+    "INTELLIJ_IDEA": "idea",
+    "ANDROID_STUDIO": "as",
+    "CURSOR": "cur",
+    "SUMATRA": "pdf",
+    "TRAE": "trae",
+    "VSCODE_SSH": "vscs",
+    "TYPORA": "ty"
 }
 ```
 
@@ -46,7 +48,7 @@ All configurations can be done in the Settings Panel. Change the configurations 
 
 - Configure program paths in the following format:
 
-  ```plaintext
+  ```ini
   APP_DOWNLOAD=C:/path/to/app.exe
   APP_STORAGE=C:/path/to/storage/file
   ```
@@ -54,19 +56,28 @@ All configurations can be done in the Settings Panel. Change the configurations 
 - Each program needs both DOWNLOAD and STORAGE entries
 - Example configuration:
 
-  ```plaintext
+  ```ini
   VSCODE_DOWNLOAD=D:/VSCode/bin/code
   VSCODE_STORAGE=C:/Users/YourUsername/AppData/Roaming/Code/User/globalStorage/storage.json
+
+  VISUAL_STUDIO_DOWNLOAD=D:/VisualStudio/Common7/IDE/devenv.exe
+  VISUAL_STUDIO_STORAGE=C:/Users/YourUsername/AppData/Local/Microsoft/VisualStudio/17.0_856acfe5/ApplicationPrivateSettings.xml
+
   ANDROID_STUDIO_DOWNLOAD=D:/Android Studio/bin/studio64.exe
   ANDROID_STUDIO_STORAGE=C:/Users/YourUsername/AppData/Roaming/Google/AndroidStudio2024.1/options/recentProjects.xml
+
   INTELLIJ_IDEA_DOWNLOAD=D:/IntelliJ IDEA 2024.3/bin/idea64.exe
   INTELLIJ_IDEA_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/IntelliJIdea2024.3/options/recentProjects.xml
+
   GOLAND_DOWNLOAD=D:/goland/GoLand 2023.2/bin/goland64.exe
   GOLAND_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/GoLand2023.2/options/recentProjects.xml
+
   CLION_DOWNLOAD=D:/Clion/CLion 2024.1.4/bin/clion64.exe
   CLION_STORAGE=C:/Users/YourUsername/AppData/Roaming/JetBrains/CLion2024.1/options/recentProjects.xml
+
   CURSOR_DOWNLOAD=C:/Users/YourUsername/AppData/Local/Programs/cursor/Cursor.exe
   CURSOR_STORAGE=C:/Users/YourUsername/AppData/Roaming/Cursor/globalStorage/storage.json
+
   TYPORA_DOWNLOAD=D:/Typora/Typora.exe
   TYPORA_STORAGE=C:/Users/YourUsername/AppData/Roaming/Typora/history.data
   ```
@@ -76,7 +87,7 @@ All configurations can be done in the Settings Panel. Change the configurations 
 - You can customize the program suggestions list displayed when no input is provided.
 - Configure program suggestions list in the following format:
 
-  ```plaintext
+  ```ini
   VSCODE
   PYCHARM
   INTELLIJ_IDEA
@@ -94,7 +105,7 @@ All configurations can be done in the Settings Panel. Change the configurations 
 
 - Configure custom acronyms for your programs in the following format:
 
-  ```plaintext
+  ```ini
   VSCODE=vs
   PYCHARM=pc
   # ... other acronyms map

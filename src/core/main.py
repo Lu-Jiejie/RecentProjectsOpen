@@ -109,7 +109,7 @@ class RecentProjectsOpen(FlowLauncher):
                             "parameters": [path],
                         },
                         "score": 0,
-                    }
+                    },
                 ]
             # folder path
             elif re.match(folder_pattern, path):
@@ -124,9 +124,9 @@ class RecentProjectsOpen(FlowLauncher):
                             "parameters": ["start", path],
                         },
                         "score": 0,
-                    }
+                    },
                 ]
-        
+
         return None
 
     def open_url(self, url):
@@ -145,7 +145,7 @@ class RecentProjectsOpen(FlowLauncher):
 
     def show_in_explorer(self, path: str):
         _ = subprocess.Popen(
-            f'explorer /e,/select,{path}',
+            f"explorer /e,/select,{path}",
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             shell=True,
