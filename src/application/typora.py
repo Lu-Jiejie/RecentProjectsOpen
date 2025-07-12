@@ -54,6 +54,8 @@ class Typora(BaseApplication):
         all_items.sort(key=lambda x: x["timestamp"], reverse=True)
 
         for item in all_items:
-            projects.append(Project(self.name, item["path"]))
+            path = str(item['path']).replace("\\", "/")
+            project = Project(self.name, path)
+            projects.append(project)
 
         return projects

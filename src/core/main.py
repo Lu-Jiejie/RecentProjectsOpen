@@ -1,3 +1,4 @@
+import re
 import subprocess
 import webbrowser
 from typing import Dict, List
@@ -71,64 +72,62 @@ class RecentProjectsOpen(FlowLauncher):
 
     def context_menu(self, data: str) -> list:
         """
-        使用任务管理器打开文件夹
-        复制文件夹路径
+        使用任务管理器打开文件夹或选中文件
+        复制文件夹或文件路径
         """
-        if data is None:
-            return MessageDTO.asDebugFlowMessage("data is None")
-        import re
 
-        # 正则表达式
-        pattern = r"^[A-Za-z]:/[\w\-/]+$"
+        folder_pattern = r"^[A-Za-z]:/(?:[^/]+/)*[^/]+$"
+        file_pattern = r"^[A-Za-z]:/(?:[^/]+/)*[^/]+\.[^/]+$"
 
-        if len(data) > 1 and re.match(pattern, data[1]):
-            return [
-                {
-                    "title": "Copy path",
-                    "subTitle": "Press enter to copy the path",
-                    "icoPath": "icons/app.png",  # related path to the image
-                    "jsonRPCAction": {
-                        "method": "copy_to_clipboard",
-                        "parameters": [data[1]],
-                    },
-                    "score": 0,
+        def copy_path_item(path, type):
+            return {
+                "title": f"Copy {type} path",
+                "subTitle": f"Press enter to copy the {type} path",
+                "icoPath": "icons/app.png",
+                "jsonRPCAction": {
+                    "method": "copy_to_clipboard",
+                    "parameters": [path],
                 },
-                {
-                    "title": "Open in explorer",
-                    "subTitle": "Press enter to open the explorer",
-                    "icoPath": "icons/app.png",  # related path to the image
-                    "jsonRPCAction": {
-                        "method": "cmd_command",
-                        "parameters": ["start", data[1]],
-                    },
-                    "score": 0,
-                },
-                {
-                    "title": "RecentProjectsOpen's Context menu",
-                    "subTitle": "Press enter to open Flow the plugin's repo in GitHub",
-                    "icoPath": "icons/app.png",
-                    "jsonRPCAction": {
-                        "method": "open_url",
-                        "parameters": [
-                            "https://github.com/Attack825/RecentProjectsOpen"
-                        ],
-                    },
-                },
-            ]
-        else:
-            return MessageDTO.asWarnFlowMessage(
-                {
-                    "title": "RecentProjectsOpen's Context menu",
-                    "subTitle": "Press enter to open Flow the plugin's repo in GitHub",
-                    "icoPath": "icons/app.png",
-                    "jsonRPCAction": {
-                        "method": "open_url",
-                        "parameters": [
-                            "https://github.com/Attack825/RecentProjectsOpen"
-                        ],
-                    },
-                },
-            )
+                "score": 0,
+            }
+
+        if data is not None and len(data) > 1:
+            # normalize the path to use forward slashes
+            path = data[1].replace("\\", "/")
+            # file path
+            if re.match(file_pattern, path):
+                path = path.replace("/", "\\")
+                logger.debug(f"/e,/select,{path}")
+                return [
+                    copy_path_item(path, "file"),
+                    {
+                        "title": "Show in explorer",
+                        "subTitle": "Press enter to show and select the file in explorer",
+                        "icoPath": "icons/app.png",
+                        "jsonRPCAction": {
+                            "method": "show_in_explorer",
+                            "parameters": [path],
+                        },
+                        "score": 0,
+                    }
+                ]
+            # folder path
+            elif re.match(folder_pattern, path):
+                return [
+                    copy_path_item(path, "folder"),
+                    {
+                        "title": "Open in explorer",
+                        "subTitle": "Press enter to open the folder in explorer",
+                        "icoPath": "icons/app.png",
+                        "jsonRPCAction": {
+                            "method": "cmd_command",
+                            "parameters": ["start", path],
+                        },
+                        "score": 0,
+                    }
+                ]
+        
+        return None
 
     def open_url(self, url):
         webbrowser.open(url)
@@ -139,6 +138,14 @@ class RecentProjectsOpen(FlowLauncher):
         """
         _ = subprocess.Popen(
             args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+        )
+
+    def show_in_explorer(self, path: str):
+        _ = subprocess.Popen(
+            f'explorer /e,/select,{path}',
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             shell=True,
